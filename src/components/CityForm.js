@@ -9,22 +9,14 @@ const CityForm = (props) => {
         setSearchText(event.target.value);
     }
 
+    const formSize = isMain ? "lg" : "";
+
     return (
         <>
-            {!isMain &&
-                <Form inline onSubmit={cityHandler(searchText)}>
-                    <FormControl type="text" defaultValue="" onChange={updateSearchText} placeholder="Enter a city..." className="mr-sm-2" />
-                    <Button variant="outline-primary" type="submit">Search</Button>
-                </Form>
-            }
-            {isMain &&
-                <Form size="lg" inline onSubmit={cityHandler(searchText)}>
-                    <Form.Row>
-                        <FormControl size="lg" type="text" defaultValue="" onChange={updateSearchText} placeholder="Enter a city..." className="mr-sm-2" />
-                        <Button size="lg" variant="outline-primary" type="submit">Search</Button>
-                    </Form.Row>
-                </Form>
-            }
+            <Form size={formSize} inline onSubmit={cityHandler(searchText)}>
+                <FormControl size={formSize} type="text" defaultValue="" onChange={updateSearchText} placeholder="Enter a city..." className="mr-sm-2" />
+                <Button size={formSize} variant="outline-primary" type="submit">Search</Button>
+            </Form>
         </>
     )
 }
