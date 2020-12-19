@@ -4,7 +4,7 @@ import AppBar from './components/AppBar';
 import CityForm from './components/CityForm';
 import Home from './components/Home';
 
-function App() {
+const App = () => {
   const [ isAuthed, setAuth ] = useState(false);
   const [ currPage, setPage ] = useState('home'); // home, profile, city
   const [ currCity, setCity ] = useState('dummyInit');
