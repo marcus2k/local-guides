@@ -38,14 +38,14 @@ function App() {
       cityHandler={cityHandler}
       currPage={currPage}
       />
-      <div className="col">
+      <div className="main">
       {/*Main conditional Display here*/}
       {currPage === "home" &&
         <Home cityHandler={cityHandler} />
       }
       </div>
       {!isAuthed && 
-        <div className="footer">
+        <div className="unauthed-footer">
           <p>Here as a guide? <a href="#" onClick={login}>Login</a> to set up your profile!<br/></p>
         </div>
       }
