@@ -7,7 +7,7 @@ const AppBar = (props) => {
 
     return (
         <Navbar bg="light" expand="lg">
-        <Navbar.Brand>Local Guides</Navbar.Brand>
+        <Navbar.Brand style={{userSelect: "none"}}>Local Guides</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
