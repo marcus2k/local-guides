@@ -3,7 +3,7 @@ import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import CityForm from './CityForm';
 
 const AppBar = (props) => {
-    const { isAuthed, loginHandler, logoutHandler, pageHandler, cityHandler } = props;
+    const { isAuthed, loginHandler, logoutHandler, pageHandler, cityHandler, currPage } = props;
 
     return (
         <Navbar bg="light" expand="lg">
@@ -23,10 +23,12 @@ const AppBar = (props) => {
                 </NavDropdown>
             }
           </Nav>
-          <CityForm
-          isMain={false}
-          cityHandler={cityHandler}
-          />
+          {currPage !== "home" &&
+            <CityForm
+            isMain={false}
+            cityHandler={cityHandler}
+            />
+          }
         </Navbar.Collapse>
         </Navbar>
     )

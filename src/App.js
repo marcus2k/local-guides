@@ -36,6 +36,7 @@ function App() {
       logoutHandler={logout}
       pageHandler={pageHandler}
       cityHandler={cityHandler}
+      currPage={currPage}
       />
       <div className="col">
       {/*Main conditional Display here*/}
