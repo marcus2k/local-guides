@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import './App.css';
-import AppBar from './components/AppBar'
+import AppBar from './components/AppBar';
+import CityForm from './components/CityForm';
+import Home from './components/Home';
 
 function App() {
   const [ isAuthed, setAuth ] = useState(false);
@@ -35,8 +37,17 @@ function App() {
       pageHandler={pageHandler}
       cityHandler={cityHandler}
       />
-      {/*<header className="App-header">
-      </header>*/}
+      <div className="col">
+      {/*Main conditional Display here*/}
+      {currPage === "home" &&
+        <Home cityHandler={cityHandler} />
+      }
+      </div>
+      {!isAuthed && 
+        <div className="footer">
+          <p>Here as a guide? <a href="#" onClick={login}>Login</a> to set up your profile!<br/></p>
+        </div>
+      }
     </div>
   );
 }

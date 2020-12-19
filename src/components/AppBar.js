@@ -1,13 +1,9 @@
-import React, { useState } from 'react';
-import { Navbar, Nav, NavDropdown, Form, FormControl, Button } from 'react-bootstrap';
+import React from 'react';
+import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
+import CityForm from './CityForm';
 
 const AppBar = (props) => {
     const { isAuthed, loginHandler, logoutHandler, pageHandler, cityHandler } = props;
-    const [ searchText, setSearchText ] = useState('');
-
-    const updateSearchText = event => {
-        setSearchText(event.target.value);
-    }
 
     return (
         <Navbar bg="light" expand="lg">
@@ -27,10 +23,10 @@ const AppBar = (props) => {
                 </NavDropdown>
             }
           </Nav>
-          <Form inline onSubmit={cityHandler(searchText)}>
-            <FormControl type="text" defaultValue="" onChange={updateSearchText} placeholder="Enter a city..." className="mr-sm-2" />
-            <Button variant="outline-primary" type="submit">Search</Button>
-          </Form>
+          <CityForm
+          isMain={false}
+          cityHandler={cityHandler}
+          />
         </Navbar.Collapse>
         </Navbar>
     )
