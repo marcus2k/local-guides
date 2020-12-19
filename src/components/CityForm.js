@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import { Form, FormControl, Button, Row, Col } from 'react-bootstrap';
 
 const CityForm = (props) => {
-    const { cityHandler, isMain } = props;
+    const { cityHandler, isMain, citiesList } = props;
     const [ searchText, setSearchText ] = useState('');
 
     const updateSearchText = event => {
         setSearchText(event.target.value);
     }
+
+    console.log(citiesList);
 
     const formSize = isMain ? "lg" : "";
 

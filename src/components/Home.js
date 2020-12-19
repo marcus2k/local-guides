@@ -2,7 +2,7 @@ import React from 'react';
 import CityForm from './CityForm';
 
 const Home = (props) => {
-    const { cityHandler } = props;
+    const { cityHandler, citiesList } = props;
 
     return (
         <>
@@ -10,6 +10,7 @@ const Home = (props) => {
             <CityForm 
             isMain={true}
             cityHandler={cityHandler}
+            citiesList={citiesList}
             />
         </>
     )
