@@ -36,6 +36,39 @@ const sampleGuideData = [
         mobile: "+6139482193",
     },
     {
+        name: "Albert Pozowski", // yes
+        gender: "M", 
+        city: "Melbourne, Australia",
+        hourlyRate: ["AUD", 400], // yes
+        transport: 0, // yes
+        languages: ["Chinese", "English"],
+        intro: "Hi, my name is Chen Long, call me Jackie!",
+        email: "albert@example.com",
+        mobile: "+6139482193",
+    },
+    {
+        name: "Pauline Meadows", // yes
+        gender: "M", 
+        city: "Melbourne, Australia",
+        hourlyRate: ["AUD", 400], // yes
+        transport: 0, // yes
+        languages: ["Chinese", "English"],
+        intro: "Hi, my name is Chen Long, call me Jackie!",
+        email: "pauline@example.com",
+        mobile: "+6139482193",
+    },
+    {
+        name: "Paul Blackbeard", // yes
+        gender: "M", 
+        city: "Melbourne, Australia",
+        hourlyRate: ["AUD", 400], // yes
+        transport: 0, // yes
+        languages: ["Chinese", "English"],
+        intro: "Hi, my name is Chen Long, call me Jackie!",
+        email: "paul@example.com",
+        mobile: "+6139482193",
+    },
+    {
         name: "Billie",
         gender: "F",
         city: "Bangkok, Thailand",
@@ -53,11 +86,13 @@ const filterGuides = (city, guideList) => guideList.filter(guide => guide.city =
 const CityPage = (props) => {
     const { city } = props;
     const guideList = filterGuides(city, sampleGuideData);
+    const hasGuides = guideList.length !== 0;
 
     return (
         <div>
             <h2 className="city-header">Tour Guides at: {city}</h2>
-            <GuideList list={guideList} />
+            {hasGuides && <GuideList list={guideList} />}
+            {!hasGuides && <h4><br /><br />No tour guides found :(</h4>}
         </div>
     )
 }
