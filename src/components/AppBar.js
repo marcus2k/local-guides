@@ -23,6 +23,7 @@ const AppBar = (props) => {
                 </NavDropdown>
             }
           </Nav>
+          <div style={{ alignSelf: 'center', display: 'inline-block' }}>
           {currPage !== "home" &&
             <CitySearch
             isMain={false}
@@ -30,6 +31,7 @@ const AppBar = (props) => {
             citiesList={citiesList}
             />
           }
+          </div>
         </Navbar.Collapse>
         </Navbar>
     )
