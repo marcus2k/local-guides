@@ -1,9 +1,8 @@
 import React from 'react';
-import { Alert } from 'react-bootstrap';
 import CitySearch from './CitySearch';
 
 const Home = (props) => {
-    const { cityHandler, citiesList, showAlert } = props;
+    const { cityHandler, citiesList } = props;
 
     return (
         <>
