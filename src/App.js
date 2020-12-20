@@ -50,7 +50,6 @@ const App = () => {
     event.preventDefault();
     if (!cityName) {
       // alert("Please select a valid city. If you are a guide, you may add your city through your profile!");
-      setPage('home');
       setAlert(true);
       setTimeout(() => setAlert(false), 5000);
       return;

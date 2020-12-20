@@ -6,7 +6,7 @@ const GuideList = (props) => {
 
     return (
         <div style={{display: "flex", flexWrap: "wrap", justifyContent: "space-evenly"}}>
-            {list.map(g => <GuideCard guideData={g} />)}
+            {list.map(g => <GuideCard key={g.name} guideData={g} />)}
         </div>
     )
 }
