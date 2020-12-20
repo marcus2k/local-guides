@@ -3,14 +3,18 @@ import './App.css';
 import AppBar from './components/AppBar';
 import Home from './components/Home';
 import CityPage from './components/CityPage';
-import cities from './services/cities.js';
+import citiesServices from './services/cities';
 import { Alert } from 'react-bootstrap';
+import Profile from './components/Profile';
 
 const App = () => {
   const [ isAuthed, setAuth ] = useState(false);
   const [ currPage, setPage ] = useState('home'); // home, profile, city
   const [ currCity, setCity ] = useState('dummyInit');
   const [ showAlert, setAlert ] = useState(false);
+  const [ currencies, setCurrencies ] = useState([
+    "AUD", "SGD", "IDR", "USD", "THB",
+  ])
   const [ citiesList, setCitiesList ] = useState([
     "New York, USA", 
     "Bali, Indonesia", 
@@ -20,7 +24,7 @@ const App = () => {
   ]);
 
   /*
-  useEffect(() => cities
+  useEffect(() => citiesServices
   .getAllCities()
   .then(lst => {
     console.log(lst); 
@@ -82,6 +86,9 @@ const App = () => {
       }
       {currPage === "city" &&
         <CityPage city={currCity} />
+      }
+      {currPage === "profile" &&
+        <Profile currencies={currencies} citiesList={citiesList}/>
       }
       </div>
       {!isAuthed && 
