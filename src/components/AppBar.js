@@ -6,7 +6,7 @@ const AppBar = (props) => {
     const { isAuthed, loginHandler, logoutHandler, pageHandler, cityHandler, currPage, citiesList } = props;
 
     return (
-        <Navbar bg="light" expand="lg">
+        <Navbar bg="light" expand="md">
         <Navbar.Brand style={{userSelect: "none"}}>Local Guides</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
