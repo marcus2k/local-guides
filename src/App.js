@@ -31,24 +31,30 @@ const App = () => {
   console.log(citiesList);
   const login = () => {
     setAuth(true);
+    setAlert(false);
   }
 
   const logout = () => {
     setAuth(false);
+    setAlert(false);
     setPage('home');
   }
 
-  const pageHandler = x => () => setPage(x);
+  const pageHandler = x => () => {
+    setPage(x);
+    setAlert(false);
+  }
 
   const cityHandler = (cityName) => event => {
     event.preventDefault();
     if (!cityName) {
-      setAlert(true);
       // alert("Please select a valid city. If you are a guide, you may add your city through your profile!");
       setPage('home');
+      setTimeout(() => setAlert(true), 50);
       setTimeout(() => setAlert(false), 5000);
       return;
     }
+    setAlert(false);
     console.log(cityName);
     setCity(cityName);
     setPage('city');
