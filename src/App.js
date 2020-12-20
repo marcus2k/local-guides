@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './App.css';
 import AppBar from './components/AppBar';
 import Home from './components/Home';
+import CityPage from './components/CityPage';
 import cities from './services/cities.js';
 import { Alert } from 'react-bootstrap';
 
@@ -76,12 +77,12 @@ const App = () => {
             Please select a valid city. If you are a guide, you may add your city through your profile!
         </Alert>
       }
-      <div className="main">
-      {/*Main conditional Display here*/}
       {currPage === "home" &&
         <Home cityHandler={cityHandler} citiesList={citiesList}/>
       }
-      </div>
+      {currPage === "city" &&
+        <CityPage city={currCity} />
+      }
       {!isAuthed && 
         <div className="unauthed-footer">
           <p>Here as a guide? <a href="#" onClick={login}>Login</a> to set up your profile!<br/></p>
