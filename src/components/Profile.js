@@ -28,6 +28,7 @@ const isValidLanguages = lang => lang.length > 0;
 
 const Profile = (props) => {
     const { currencies, citiesList } = props;
+    const [ formState, setFormState ] = useState("")
     const [ nameError, setNameError ] = useState(false); // should be at least 3 chars and at most 20 chars
     const [ rateError, setRateError ] = useState(false); // should be at least 0, no cents allowed?
     const [ introError, setIntroError ] = useState(false); // should not be longer than 200 characters
