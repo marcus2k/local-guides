@@ -39,13 +39,29 @@ const Profile = (props) => {
         event.preventDefault();
         const form = event.target;
         // alert(form.name.value);
-        console.log(form.name.value);
-        console.log(form.intro.value);
-        console.log(form.gender.value);
-        console.log(form.currency.value);
-        console.log(form.email.value);
-        console.log(Array.from(form.cities).map(node => node.defaultValue));
-        console.log(Array.from(form.languages).map(node => node.defaultValue));
+        const [ name, intro, gender, currency, rate, email ] = 
+            [ form.name, form.intro, form.gender, form.currency, form.hourlyRate, form.email ]
+            .map(obj => obj.value);
+        const [ cities, languages ] = [ form.cities, form.languages ]
+            .map(radioArr => radioArr.value ? radioArr.value : Array.from(radioArr).map(node => node.defaultValue));
+        const newProfile = { 
+            name: name, 
+            intro: intro, 
+            gender: gender, 
+            hourlyRate: [currency, rate], 
+            email: email, 
+            cities: [].concat(cities), 
+            languages: [].concat(languages)
+        };
+        console.log(name);
+        console.log(intro);
+        console.log(gender);
+        console.log(currency);
+        console.log(rate);
+        console.log(email);
+        console.log(cities);
+        console.log(languages);
+        console.log(newProfile);
     }
 
     return (
@@ -62,7 +78,7 @@ const Profile = (props) => {
                         <Select
                         className="basic-single"
                         classNamePrefix="select"
-                        placeholder="Select your gender"
+                        //placeholder="Select your gender"
                         defaultValue="M"
                         isDisabled={false}
                         isLoading={false}
@@ -80,12 +96,13 @@ const Profile = (props) => {
                     </Form.Group>
                 </Form.Row>
                 <Form.Row>
+                    <Form.Row>
                     <Form.Group as={Col} controlId="currency">
                         <Form.Label>Currency</Form.Label>
                         <Select
                         className="basic-single"
                         classNamePrefix="select"
-                        placeholder="Currency"
+                        //placeholder="Currency"
                         defaultValue="USD"
                         isDisabled={false}
                         isLoading={false}
@@ -99,7 +116,16 @@ const Profile = (props) => {
                     </Form.Group>
                     <Form.Group as={Col} controlId="hourlyRate">
                         <Form.Label>Hourly Rate</Form.Label>
-                        <Form.Control type="currency" default={0} />
+                        <Form.Control type="number" default={0} />
+                    </Form.Group>
+                    <Form.Group as={Col} controlId="transport">
+                    <Form.Label>Transport</Form.Label>
+                    <Form.Control type="number" default={0} placeholder="No. of guests" />
+                    </Form.Group>
+                    </Form.Row>
+                    <Form.Group as={Col} controlId="mobile">
+                        <Form.Label>Mobile</Form.Label>
+                        <Form.Control type="tel" defaultValue="+6593847382" />
                     </Form.Group>
                 </Form.Row>
                 <Form.Row>
