@@ -38,8 +38,6 @@ const GuideCard = props => {
             <Modal
             show={showModal}
             onHide={closeModal}
-            backdrop="static"
-            keyboard={false}
             centered
             >
                 <Modal.Header closeButton>
