@@ -11,6 +11,10 @@
   flex-direction: column;
 }
 
+.city-header {
+  margin: 10px 5px 10px 5px;
+}
+
 .home {
   flex-grow: 1;
   display: flex;
