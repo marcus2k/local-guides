@@ -1,13 +1,14 @@
 import React from 'react';
-import CityForm from './CityForm';
+import { Alert } from 'react-bootstrap';
+import CitySearch from './CitySearch';
 
 const Home = (props) => {
-    const { cityHandler, citiesList } = props;
+    const { cityHandler, citiesList, showAlert } = props;
 
     return (
         <>
             <h1>Where to next?</h1>
-            <CityForm 
+            <CitySearch 
             isMain={true}
             cityHandler={cityHandler}
             citiesList={citiesList}

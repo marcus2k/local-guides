@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import AppBar from './components/AppBar';
-import CityForm from './components/CityForm';
 import Home from './components/Home';
 import cities from './services/cities.js';
 
@@ -9,7 +8,13 @@ const App = () => {
   const [ isAuthed, setAuth ] = useState(false);
   const [ currPage, setPage ] = useState('home'); // home, profile, city
   const [ currCity, setCity ] = useState('dummyInit');
-  const [ citiesList, setCitiesList ] = useState(["New York, USA", "Jakarta, Indonesia", "Singapore", "Bangkok, Thailand", "Melbourne, Australia"]);
+  const [ citiesList, setCitiesList ] = useState([
+    "New York, USA", 
+    "Bali, Indonesia", 
+    "Singapore, Singapore", 
+    "Bangkok, Thailand", 
+    "Melbourne, Australia"
+  ]);
 
   /*
   useEffect(() => cities
@@ -35,8 +40,12 @@ const App = () => {
 
   const cityHandler = (cityName) => event => {
     event.preventDefault();
+    if (!cityName) {
+      alert("Please select a valid city. If you are a guide, you may add your city through your profile!");
+      setPage('home');
+      return;
+    }
     console.log(cityName);
-    alert(cityName)
     setCity(cityName);
     setPage('city');
   }
@@ -52,6 +61,7 @@ const App = () => {
       currPage={currPage}
       citiesList={citiesList}
       />
+
       <div className="main">
       {/*Main conditional Display here*/}
       {currPage === "home" &&

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
-import CityForm from './CityForm';
+import CitySearch from './CitySearch';
 
 const AppBar = (props) => {
     const { isAuthed, loginHandler, logoutHandler, pageHandler, cityHandler, currPage, citiesList } = props;
@@ -24,7 +24,7 @@ const AppBar = (props) => {
             }
           </Nav>
           {currPage !== "home" &&
-            <CityForm
+            <CitySearch
             isMain={false}
             cityHandler={cityHandler}
             citiesList={citiesList}
