@@ -5,7 +5,7 @@ const Home = (props) => {
     const { cityHandler, citiesList } = props;
 
     return (
-        <div className="main">
+        <div className="home">
             <h1>Where to next?</h1>
             <CitySearch 
             isMain={true}

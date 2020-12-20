@@ -77,12 +77,14 @@ const App = () => {
             Please select a valid city. If you are a guide, you may add your city through your profile!
         </Alert>
       }
+      <div className="main">
       {currPage === "home" &&
         <Home cityHandler={cityHandler} citiesList={citiesList}/>
       }
       {currPage === "city" &&
         <CityPage city={currCity} />
       }
+      </div>
       {!isAuthed && 
         <div className="unauthed-footer">
           <p>Here as a guide? <a href="#" onClick={login}>Login</a> to set up your profile!<br/></p>
