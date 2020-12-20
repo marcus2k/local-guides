@@ -3,11 +3,13 @@ import './App.css';
 import AppBar from './components/AppBar';
 import Home from './components/Home';
 import cities from './services/cities.js';
+import { Alert } from 'react-bootstrap';
 
 const App = () => {
   const [ isAuthed, setAuth ] = useState(false);
   const [ currPage, setPage ] = useState('home'); // home, profile, city
   const [ currCity, setCity ] = useState('dummyInit');
+  const [ showAlert, setAlert ] = useState(false);
   const [ citiesList, setCitiesList ] = useState([
     "New York, USA", 
     "Bali, Indonesia", 
@@ -41,8 +43,10 @@ const App = () => {
   const cityHandler = (cityName) => event => {
     event.preventDefault();
     if (!cityName) {
-      alert("Please select a valid city. If you are a guide, you may add your city through your profile!");
+      setAlert(true);
+      // alert("Please select a valid city. If you are a guide, you may add your city through your profile!");
       setPage('home');
+      setTimeout(() => setAlert(false), 5000);
       return;
     }
     console.log(cityName);
@@ -61,7 +65,11 @@ const App = () => {
       currPage={currPage}
       citiesList={citiesList}
       />
-
+      {showAlert && 
+        <Alert variant='danger'>
+            Please select a valid city. If you are a guide, you may add your city through your profile!
+        </Alert>
+      }
       <div className="main">
       {/*Main conditional Display here*/}
       {currPage === "home" &&
