@@ -6,8 +6,33 @@ const genderOptions = [{label: "Male", value: "M"}, {label: "Female", value: "F"
 
 const sortThenObjectify = lst => lst.sort((a, b) => a > b ? 1 : -1).map(x => ({value: x, label: x}));
 
+const NAME_ERROR = "Name should be between 3 and 20 characters, inclusive."
+
+const RATE_ERROR = "Rate must be non-negative integers."
+
+const INTRO_ERROR = "Introduction must be at most 200 characters."
+
+const CITIES_ERROR = "You must select at least one city."
+
+const LANG_ERROR = "You must select at least one language."
+
+const isValidName = name => name.length > 2 && name.length < 21;
+
+const isValidRate = rate => rate >= 0; // decimal should be automatically rounded
+
+const isValidIntro = intro => intro.length < 201;
+
+const isValidCities = cities => cities.length > 0;
+
+const isValidLanguages = lang => lang.length > 0;
+
 const Profile = (props) => {
     const { currencies, citiesList } = props;
+    const [ nameError, setNameError ] = useState(false); // should be at least 3 chars and at most 20 chars
+    const [ rateError, setRateError ] = useState(false); // should be at least 0, no cents allowed?
+    const [ introError, setIntroError ] = useState(false); // should not be longer than 200 characters
+    const [ citiesError, setCitiesError ] = useState(false); // at least one
+    const [ langError, setLangError ] = useState(false); // at least one
 
     const handleSubmit = event => {
         event.preventDefault();
