@@ -26,6 +26,8 @@ const isValidCities = cities => cities.length > 0;
 
 const isValidLanguages = lang => lang.length > 0;
 
+const FORM_PROPS = [ "name", "intro", "gender", "currency", "hourlyRate", "email", "mobile", "transport", "cities", "languages" ];
+
 const Profile = (props) => {
     const { currencies, citiesList } = props;
     const [ formState, setFormState ] = useState("")
@@ -39,8 +41,8 @@ const Profile = (props) => {
         event.preventDefault();
         const form = event.target;
         // alert(form.name.value);
-        const [ name, intro, gender, currency, rate, email ] = 
-            [ form.name, form.intro, form.gender, form.currency, form.hourlyRate, form.email ]
+        const [ name, intro, gender, currency, rate, email, mobile, transport ] = 
+            [ form.name, form.intro, form.gender, form.currency, form.hourlyRate, form.email, form.mobile, form.transport ]
             .map(obj => obj.value);
         const [ cities, languages ] = [ form.cities, form.languages ]
             .map(radioArr => radioArr.value ? radioArr.value : Array.from(radioArr).map(node => node.defaultValue));
@@ -51,7 +53,9 @@ const Profile = (props) => {
             hourlyRate: [currency, rate], 
             email: email, 
             cities: [].concat(cities), 
-            languages: [].concat(languages)
+            languages: [].concat(languages),
+            mobile: mobile,
+            transport: transport,
         };
         console.log(name);
         console.log(intro);
@@ -71,7 +75,10 @@ const Profile = (props) => {
                 <Form.Row>
                     <Form.Group as={Col} controlId="name">
                         <Form.Label>Name</Form.Label>
-                        <Form.Control type="name" defaultValue="currentName" />
+                        <Form.Control type="name" defaultValue="currentName" isInvalid={true}/>
+                        <Form.Control.Feedback type="invalid">
+                            Test
+                        </Form.Control.Feedback>
                     </Form.Group>
                     <Form.Group as={Col} controlId="intro">
                         <Form.Label>Gender</Form.Label>
@@ -116,11 +123,11 @@ const Profile = (props) => {
                     </Form.Group>
                     <Form.Group as={Col} controlId="hourlyRate">
                         <Form.Label>Hourly Rate</Form.Label>
-                        <Form.Control type="number" default={0} />
+                        <Form.Control min="0" type="number" default={0} />
                     </Form.Group>
                     <Form.Group as={Col} controlId="transport">
                     <Form.Label>Transport</Form.Label>
-                    <Form.Control type="number" default={0} placeholder="No. of guests" />
+                    <Form.Control type="number" min="0" default={0} placeholder="No. of guests" />
                     </Form.Group>
                     </Form.Row>
                     <Form.Group as={Col} controlId="mobile">
