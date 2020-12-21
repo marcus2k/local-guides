@@ -33,7 +33,6 @@ const Profile = (props) => {
     };
     const [ formState, setFormState ] = useState(profile)
     const [ nameError, setNameError ] = useState(false); // should be at least 3 chars and at most 20 chars
-    const [ rateError, setRateError ] = useState(false); // should be at least 0, no cents allowed?
     const [ mobileError, setMobileError ] = useState(false); 
     const [ citiesError, setCitiesError ] = useState(false); // at least one
     const [ langError, setLangError ] = useState(false); // at least one
