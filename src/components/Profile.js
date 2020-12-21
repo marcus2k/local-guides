@@ -16,11 +16,11 @@ const CITIES_ERROR = "You must select at least one city."
 
 const LANG_ERROR = "You must select at least one language."
 
-const isValidName = name => name.length > 2 && name.length < 21;
+const isValidName = name => name.length > 2;
 
 const isValidRate = rate => rate >= 0; // decimal should be automatically rounded
 
-const isValidIntro = intro => intro.length < 201;
+const isValidMobile = mobile => mobile.match(/^[0-9]+$/) && mobile.length > 7;
 
 const isValidCities = cities => cities.length > 0;
 
@@ -33,7 +33,7 @@ const Profile = (props) => {
     const [ formState, setFormState ] = useState("")
     const [ nameError, setNameError ] = useState(false); // should be at least 3 chars and at most 20 chars
     const [ rateError, setRateError ] = useState(false); // should be at least 0, no cents allowed?
-    const [ introError, setIntroError ] = useState(false); // should not be longer than 200 characters
+    const [ mobileError, setMobileError ] = useState(false); 
     const [ citiesError, setCitiesError ] = useState(false); // at least one
     const [ langError, setLangError ] = useState(false); // at least one
 
@@ -57,9 +57,10 @@ const Profile = (props) => {
             mobile: mobile,
             transport: transport,
         };
-        name.length < 3 ? setNameError(true) : void(0);
-        cities.length ? void(0) : setCitiesError(true);
-        languages.length ? void(0) : setLangError(true);
+        isValidName(name) ? setNameError(false) : setNameError(true);
+        isValidCities(cities) ? setCitiesError(false) : setCitiesError(true);
+        isValidLanguages(languages) ? setLangError(false) : setLangError(true);
+        isValidMobile(mobile) ? setMobileError(false) : setMobileError(true);
         console.log(name);
         console.log(intro);
         //console.log(!gender);
@@ -102,7 +103,10 @@ const Profile = (props) => {
                     </Form.Group>*/}
                     <Form.Group as={Col} controlId="mobile">
                         <Form.Label>Mobile</Form.Label>
-                        <Form.Control type="tel" defaultValue="+6593847382" />
+                        <Form.Control maxlength="15" type="text" isInvalid={mobileError} defaultValue="+6593847382" />
+                        <Form.Control.Feedback type="invalid">
+                            Must be at least 8 numeric digits.
+                        </Form.Control.Feedback>
                     </Form.Group>
                     <Form.Group as={Col} controlId="email">
                         <Form.Label>Email Address</Form.Label>
