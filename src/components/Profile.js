@@ -1,14 +1,8 @@
 import React, { useState } from 'react';
-import { Form, Col, Button } from 'react-bootstrap';
+import { Form, Col, Button, Alert } from 'react-bootstrap';
 import Select from 'react-select';
 
 const sortThenObjectify = lst => lst.sort((a, b) => a > b ? 1 : -1).map(x => ({value: x, label: x}));
-
-const NAME_ERROR = "Name should be between 3 and 20 characters, inclusive."
-
-const RATE_ERROR = "Rate must be non-negative integers."
-
-const INTRO_ERROR = "Introduction must be at most 200 characters."
 
 const CITIES_ERROR = "You must select at least one city."
 
@@ -55,6 +49,10 @@ const Profile = (props) => {
         isValidCities(cities) ? setCitiesError(false) : setCitiesError(true);
         isValidLanguages(languages) ? setLangError(false) : setLangError(true);
         isValidMobile(mobile) ? setMobileError(false) : setMobileError(true);
+        setTimeout(() => {
+            setLangError(false);
+            setCitiesError(false);
+        }, 5000);
         console.log(name);
         console.log(intro);
         console.log(currency);
@@ -67,6 +65,12 @@ const Profile = (props) => {
 
     return (
         <>
+            {(citiesError || langError) && 
+            <Alert variant="danger">
+                {citiesError && <div>{CITIES_ERROR}</div>}
+                {langError && <div>{LANG_ERROR}</div>}
+            </Alert>
+            }
             <h4 className="profile-header">My Guide Profile</h4>
             <Form style={{margin: 30}} onSubmit={handleSubmit}>
                 <Form.Row>
@@ -119,9 +123,10 @@ const Profile = (props) => {
                     <Form.Group as={Col} controlId="cities">
                         <Form.Label >Cities</Form.Label>
                         <Select
+                        style={{ borderColor: citiesError ? "#b94a48" : "#aaa"}}
                         className="basic-single"
                         classNamePrefix="select"
-                        placeholder="Select your cities"
+                        placeholder="Select at least one city"
                         defaultValue="Singapore, Singapore"
                         isMulti
                         isDisabled={false}
@@ -141,7 +146,7 @@ const Profile = (props) => {
                         <Select
                         className="basic-single"
                         classNamePrefix="select"
-                        placeholder="Select your languages"
+                        placeholder="Select at least one language"
                         defaultValue="English"
                         isMulti
                         isDisabled={false}
