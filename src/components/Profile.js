@@ -20,12 +20,24 @@ const FORM_PROPS = [ "name", "intro", "currency", "hourlyRate", "email", "mobile
 
 const Profile = (props) => {
     const { currencies, citiesList } = props;
-    const [ formState, setFormState ] = useState("")
+    const profile = 
+    { // sampleData
+        name: "Billie",
+        cities: ["Bangkok, Thailand"],
+        hourlyRate: ["THB", 40],
+        transport: 3,
+        languages: ["English", "Thai"],
+        intro: "Hi, my name is Billie",
+        email: "billie@example.com",
+        mobile: "6139482193",
+    };
+    const [ formState, setFormState ] = useState(profile)
     const [ nameError, setNameError ] = useState(false); // should be at least 3 chars and at most 20 chars
     const [ rateError, setRateError ] = useState(false); // should be at least 0, no cents allowed?
     const [ mobileError, setMobileError ] = useState(false); 
     const [ citiesError, setCitiesError ] = useState(false); // at least one
     const [ langError, setLangError ] = useState(false); // at least one
+    const [ showSuccess, setSuccess ] = useState(false);
 
     const handleSubmit = event => {
         event.preventDefault();
@@ -49,10 +61,14 @@ const Profile = (props) => {
         isValidCities(cities) ? setCitiesError(false) : setCitiesError(true);
         isValidLanguages(languages) ? setLangError(false) : setLangError(true);
         isValidMobile(mobile) ? setMobileError(false) : setMobileError(true);
+        const isSuccess = isValidName(name) && isValidCities(cities) && isValidLanguages(languages) && isValidCities(mobile);
+        isSuccess ? setSuccess(true) : setSuccess(false);
         setTimeout(() => {
             setLangError(false);
             setCitiesError(false);
+            setSuccess(false)
         }, 5000);
+        isSuccess ? setFormState(newProfile) : setFormState({...formState});
         console.log(name);
         console.log(intro);
         console.log(currency);
@@ -71,43 +87,48 @@ const Profile = (props) => {
                 {langError && <div>{LANG_ERROR}</div>}
             </Alert>
             }
+            {(showSuccess) && 
+                <Alert variant="success">
+                    Changes saved successfully
+                </Alert>
+            }
             <h4 className="profile-header">My Guide Profile</h4>
             <Form style={{margin: 30}} onSubmit={handleSubmit}>
                 <Form.Row>
                     <Form.Group as={Col} controlId="name">
                         <Form.Label>Name</Form.Label>
-                        <Form.Control maxlength="20" type="name" defaultValue="currentName" isInvalid={nameError}/>
+                        <Form.Control maxlength="20" type="name" defaultValue={formState.name} isInvalid={nameError}/>
                         <Form.Control.Feedback type="invalid">
                             Must be at least 3 characters.
                         </Form.Control.Feedback>
                     </Form.Group>
                     <Form.Group as={Col} controlId="mobile">
                         <Form.Label>Mobile</Form.Label>
-                        <Form.Control maxlength="15" type="text" isInvalid={mobileError} defaultValue="+6593847382" />
+                        <Form.Control maxlength="15" type="text" isInvalid={mobileError} defaultValue={formState.mobile} />
                         <Form.Control.Feedback type="invalid">
                             Must be at least 8 numeric digits.
                         </Form.Control.Feedback>
                     </Form.Group>
                     <Form.Group as={Col} controlId="email">
                         <Form.Label>Email Address</Form.Label>
-                        <Form.Control disabled type="email" defaultValue="currentEmail@example.com" />
+                        <Form.Control disabled type="email" defaultValue={formState.email} />
                     </Form.Group>
                 </Form.Row>
                 <Form.Row>
                     <Form.Group as={Col} controlId="transport">
                     <Form.Label>Transport</Form.Label>
-                    <Form.Control type="number" min="0" default={0} placeholder="No. of guests" />
+                    <Form.Control type="number" min="0" defaultValue={formState.transport} placeholder="No. of guests" />
                     </Form.Group>
                     <Form.Group as={Col} controlId="hourlyRate">
                         <Form.Label>Hourly Rate</Form.Label>
-                        <Form.Control min="0" type="number" default={0} />
+                        <Form.Control min="0" type="number" defaultValue={formState.hourlyRate[1]} />
                     </Form.Group>
                     <Form.Group as={Col} controlId="currency">
                         <Form.Label>Currency</Form.Label>
                         <Select
                         className="basic-single"
                         classNamePrefix="select"
-                        defaultValue={{label:"USD", value:"USD"}}
+                        defaultValue={{label:formState.hourlyRate[0], value:formState.hourlyRate[0]}}
                         isDisabled={false}
                         isLoading={false}
                         isClearable={false}
@@ -127,7 +148,7 @@ const Profile = (props) => {
                         className="basic-single"
                         classNamePrefix="select"
                         placeholder="Select at least one city"
-                        defaultValue="Singapore, Singapore"
+                        defaultValue={sortThenObjectify(formState.cities)}
                         isMulti
                         isDisabled={false}
                         isLoading={false}
@@ -147,7 +168,7 @@ const Profile = (props) => {
                         className="basic-single"
                         classNamePrefix="select"
                         placeholder="Select at least one language"
-                        defaultValue="English"
+                        defaultValue={sortThenObjectify(formState.languages)}
                         isMulti
                         isDisabled={false}
                         isLoading={false}
@@ -163,7 +184,7 @@ const Profile = (props) => {
                 <Form.Row>
                 <Form.Group as={Col} controlId="intro">
                     <Form.Label>Brief Introduction</Form.Label>
-                    <Form.Control maxlength="200" as="textarea" type="text" defaultValue={"dummy ".repeat(5)} />
+                    <Form.Control maxlength="200" as="textarea" type="text" defaultValue={formState.intro} />
                 </Form.Group>
                 </Form.Row>
                 <Form.Row>

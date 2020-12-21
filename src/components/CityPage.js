@@ -5,7 +5,7 @@ const sampleGuideData = [
     {
         name: "Ivanka",
         gender: "F",
-        city: "Singapore, Singapore",
+        city: ["Singapore, Singapore"],
         hourlyRate: ["SGD", 70],
         transport: 0,
         languages: ["English"],
@@ -16,7 +16,7 @@ const sampleGuideData = [
     {
         name: "Budi",
         gender: "M",
-        city: "Bali, Indonesia",
+        city: ["Bali, Indonesia"],
         hourlyRate: ["IDR", 100000],
         transport: 3,
         languages: ["English", "Indonesian"],
@@ -27,7 +27,7 @@ const sampleGuideData = [
     {
         name: "Chen Long", // yes
         gender: "M", 
-        city: "Melbourne, Australia",
+        city: ["Melbourne, Australia"],
         hourlyRate: ["AUD", 400], // yes
         transport: 0, // yes
         languages: ["Chinese", "English"],
@@ -38,7 +38,7 @@ const sampleGuideData = [
     {
         name: "Albert Pozowski", // yes
         gender: "M", 
-        city: "Melbourne, Australia",
+        city: ["Melbourne, Australia"],
         hourlyRate: ["AUD", 400], // yes
         transport: 0, // yes
         languages: ["Chinese", "English"],
@@ -49,7 +49,7 @@ const sampleGuideData = [
     {
         name: "Pauline Meadows", // yes
         gender: "M", 
-        city: "Melbourne, Australia",
+        city: ["Melbourne, Australia"],
         hourlyRate: ["AUD", 400], // yes
         transport: 0, // yes
         languages: ["Chinese", "English"],
@@ -60,7 +60,7 @@ const sampleGuideData = [
     {
         name: "Paul Blackbeard", // yes
         gender: "M", 
-        city: "Melbourne, Australia",
+        city: ["Melbourne, Australia"],
         hourlyRate: ["AUD", 400], // yes
         transport: 0, // yes
         languages: ["Chinese", "English"],
@@ -71,7 +71,7 @@ const sampleGuideData = [
     {
         name: "Billie",
         gender: "F",
-        city: "Bangkok, Thailand",
+        city: ["Bangkok, Thailand"],
         hourlyRate: ["THB", 40],
         transport: 3,
         languages: ["English", "Thai"],
@@ -81,7 +81,7 @@ const sampleGuideData = [
     }
 ]
 
-const filterGuides = (city, guideList) => guideList.filter(guide => guide.city === city);
+const filterGuides = (city, guideList) => guideList.filter(guide => guide.city.includes(city));
 
 const CityPage = (props) => {
     const { city } = props;
