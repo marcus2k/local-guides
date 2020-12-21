@@ -100,12 +100,20 @@ const Profile = (props) => {
                         onChange={void(0)}
                         />
                     </Form.Group>*/}
+                    <Form.Group as={Col} controlId="mobile">
+                        <Form.Label>Mobile</Form.Label>
+                        <Form.Control type="tel" defaultValue="+6593847382" />
+                    </Form.Group>
                     <Form.Group as={Col} controlId="email">
                         <Form.Label>Email Address</Form.Label>
                         <Form.Control disabled type="email" defaultValue="currentEmail@example.com" />
                     </Form.Group>
                 </Form.Row>
                 <Form.Row>
+                    <Form.Group as={Col} controlId="transport">
+                    <Form.Label>Transport</Form.Label>
+                    <Form.Control type="number" min="0" default={0} placeholder="No. of guests" />
+                    </Form.Group>
                     <Form.Group as={Col} controlId="hourlyRate">
                         <Form.Label>Hourly Rate</Form.Label>
                         <Form.Control min="0" type="number" default={0} />
@@ -127,14 +135,6 @@ const Profile = (props) => {
                         onChange={void(0)}
                         />
                     </Form.Group>
-                    <Form.Group as={Col} controlId="transport">
-                    <Form.Label>Transport</Form.Label>
-                    <Form.Control type="number" min="0" default={0} placeholder="No. of guests" />
-                    </Form.Group>
-                    <Form.Group as={Col} controlId="mobile">
-                        <Form.Label>Mobile</Form.Label>
-                        <Form.Control type="tel" defaultValue="+6593847382" />
-                    </Form.Group>
                 </Form.Row>
                 <Form.Row>
                     <Form.Group as={Col} controlId="cities">
@@ -155,8 +155,8 @@ const Profile = (props) => {
                         onChange={void(0)}
                         />
                     </Form.Group>
-                {/*</Form.Row>
-                <Form.Row>*/}
+                </Form.Row>
+                <Form.Row>
                     <Form.Group as={Col} controlId="languages">
                         <Form.Label>Languages</Form.Label>
                         <Select
