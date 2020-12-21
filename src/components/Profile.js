@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import { Form, Col, Button } from 'react-bootstrap';
 import Select from 'react-select';
 
-// const genderOptions = [{label: "Male", value: "M"}, {label: "Female", value: "F"}];
-
 const sortThenObjectify = lst => lst.sort((a, b) => a > b ? 1 : -1).map(x => ({value: x, label: x}));
 
 const NAME_ERROR = "Name should be between 3 and 20 characters, inclusive."
@@ -17,8 +15,6 @@ const CITIES_ERROR = "You must select at least one city."
 const LANG_ERROR = "You must select at least one language."
 
 const isValidName = name => name.length > 2;
-
-const isValidRate = rate => rate >= 0; // decimal should be automatically rounded
 
 const isValidMobile = mobile => mobile.match(/^[0-9]+$/) && mobile.length > 7;
 
@@ -40,7 +36,6 @@ const Profile = (props) => {
     const handleSubmit = event => {
         event.preventDefault();
         const form = event.target;
-        // alert(form.name.value);
         const [ name, intro, currency, rate, email, mobile, transport ] = 
             [ form.name, form.intro, form.currency, form.hourlyRate, form.email, form.mobile, form.transport ]
             .map(obj => obj.value);
@@ -49,7 +44,6 @@ const Profile = (props) => {
         const newProfile = { 
             name: name, 
             intro: intro, 
-            // gender: gender, 
             hourlyRate: [currency, rate], 
             email: email, 
             cities: cities, 
@@ -63,7 +57,6 @@ const Profile = (props) => {
         isValidMobile(mobile) ? setMobileError(false) : setMobileError(true);
         console.log(name);
         console.log(intro);
-        //console.log(!gender);
         console.log(currency);
         console.log(rate);
         console.log(email);
@@ -84,23 +77,6 @@ const Profile = (props) => {
                             Must be at least 3 characters.
                         </Form.Control.Feedback>
                     </Form.Group>
-                    {/*<Form.Group as={Col} controlId="intro">
-                        <Form.Label>Gender</Form.Label>
-                        <Select
-                        className="basic-single"
-                        classNamePrefix="select"
-                        placeholder="Select gender"
-                        defaultValue={undefined}
-                        isDisabled={false}
-                        isLoading={false}
-                        isClearable={true}
-                        isRtl={false}
-                        isSearchable={false}
-                        name="gender"
-                        options={genderOptions}
-                        onChange={void(0)}
-                        />
-                    </Form.Group>*/}
                     <Form.Group as={Col} controlId="mobile">
                         <Form.Label>Mobile</Form.Label>
                         <Form.Control maxlength="15" type="text" isInvalid={mobileError} defaultValue="+6593847382" />
@@ -127,7 +103,6 @@ const Profile = (props) => {
                         <Select
                         className="basic-single"
                         classNamePrefix="select"
-                        //placeholder="Currency"
                         defaultValue={{label:"USD", value:"USD"}}
                         isDisabled={false}
                         isLoading={false}
