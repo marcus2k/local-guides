@@ -15,6 +15,10 @@
   margin: 10px 5px 10px 5px;
 }
 
+.profile-header {
+  margin: 10px 5px 0px 5px;
+}
+
 .home {
   flex-grow: 1;
   display: flex;
