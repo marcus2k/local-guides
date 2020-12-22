@@ -7,11 +7,24 @@ import citiesServices from './services/cities';
 import { Alert } from 'react-bootstrap';
 import Profile from './components/Profile';
 
+const SAMPLE_USER = 
+{ // sampleData
+    name: "Billie",
+    cities: ["Bangkok, Thailand"],
+    hourlyRate: ["THB", 40],
+    transport: 3,
+    languages: ["English", "Thai"],
+    intro: "Hi, my name is Billie",
+    email: "billie@example.com",
+    mobile: "6139482193",
+};
+
 const App = () => {
   const [ isAuthed, setAuth ] = useState(false);
   const [ currPage, setPage ] = useState('home'); // home, profile, city
   const [ currCity, setCity ] = useState('dummyInit');
   const [ showAlert, setAlert ] = useState(false);
+  const [ user, setUser ] = useState (null);
   const [ currencies, setCurrencies ] = useState([
     "AUD", "SGD", "IDR", "USD", "THB",
   ])
@@ -36,11 +49,13 @@ const App = () => {
   console.log(citiesList);
   const login = () => {
     setAuth(true);
+    setUser(SAMPLE_USER);
     setAlert(false);
   }
 
   const logout = () => {
     setAuth(false);
+    setUser(null);
     setAlert(false);
     setPage('home');
   }
@@ -88,7 +103,7 @@ const App = () => {
         <CityPage city={currCity} />
       }
       {currPage === "profile" &&
-        <Profile currencies={currencies} citiesList={citiesList}/>
+        <Profile currencies={currencies} citiesList={citiesList} user={user}/>
       }
       </div>
       {!isAuthed && 

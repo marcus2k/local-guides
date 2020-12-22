@@ -12,26 +12,15 @@ const EMPTY_ERROR = "Required fields must not be empty."
 
 const isValidName = name => ![1, 2].includes(name.length);
 
-const isValidMobile = mobile => mobile.match(/^[0-9]+$/) && mobile.length > 7 || mobile.length === 0;
+const isValidMobile = mobile => (mobile.match(/^[0-9]+$/) && mobile.length > 7) || mobile.length === 0;
 
 const FORM_PROPS = [ "name", "intro", "currency", "hourlyRate", "email", "mobile", "transport", "cities", "languages" ];
 
 const Required = () => <span className="required">*</span>;
 
 const Profile = (props) => {
-    const { currencies, citiesList } = props;
-    const profile = 
-    { // sampleData
-        name: "Billie",
-        cities: ["Bangkok, Thailand"],
-        hourlyRate: ["THB", 40],
-        transport: 3,
-        languages: ["English", "Thai"],
-        intro: "Hi, my name is Billie",
-        email: "billie@example.com",
-        mobile: "6139482193",
-    };
-    const [ formState, setFormState ] = useState(profile)
+    const { currencies, citiesList, user } = props;
+    const [ formState, setFormState ] = useState(user)
     const [ nameError, setNameError ] = useState(false); // should be at least 3 chars and at most 20 chars
     const [ mobileError, setMobileError ] = useState(false); 
     const [ emptyError, setEmptyError ] = useState(false); // at least one
