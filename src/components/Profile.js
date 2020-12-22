@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Col, Button, Alert } from 'react-bootstrap';
+import { Form, Col, Button, Alert, Modal } from 'react-bootstrap';
 import Select from 'react-select';
 
 const sortThenObjectify = lst => lst.sort((a, b) => a > b ? 1 : -1).map(x => ({value: x, label: x}));
@@ -19,13 +19,14 @@ const FORM_PROPS = [ "name", "intro", "currency", "hourlyRate", "email", "mobile
 const Required = () => <span className="required">*</span>;
 
 const Profile = (props) => {
-    const { currencies, citiesList, user } = props;
+    const { currencies, citiesList, user, logoutHandler } = props;
     const [ formState, setFormState ] = useState(user)
     const [ nameError, setNameError ] = useState(false); // should be at least 3 chars and at most 20 chars
     const [ mobileError, setMobileError ] = useState(false); 
     const [ emptyError, setEmptyError ] = useState(false); // at least one
     const [ showSuccess, setSuccess ] = useState(false);
     const [ showError, setError ] = useState(false);
+    const [ showModal, setModal ] = useState(false);
 
     const validate = obj => {
         const objCopy = {...obj};
@@ -47,6 +48,7 @@ const Profile = (props) => {
         }, 5000);
         isSuccess ? setFormState(obj) : setFormState({...formState});
     }
+
     const handleSubmit = event => {
         event.preventDefault();
         const form = event.target;
@@ -75,6 +77,13 @@ const Profile = (props) => {
         console.log(languages);
         console.log(newProfile);
     }
+    
+    const deleteHandler = () => {
+        logoutHandler();
+    }
+
+    const openModal = () => setModal(true);
+    const closeModal = () => setModal(false);
 
     return (
         <>
@@ -187,10 +196,32 @@ const Profile = (props) => {
                 <Form.Row>
                     <Form.Group as={Col}>
                         <Button variant="success" type="submit" className="mr-sm-2">Save Changes</Button>
-                        <Button variant="danger" className="ml-sm-2">Delete Account</Button>
+                        <Button variant="danger" onClick={openModal} className="ml-sm-2">Delete Account</Button>
                     </Form.Group>
                 </Form.Row>
             </Form>
+            {showModal &&
+            <Modal
+            show={showModal}
+            onHide={closeModal}
+            centered
+            >
+                <Modal.Header closeButton>
+                <Modal.Title>Delete your account permanently?</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    Your profile will be permanently removed from our database of guides and you will be logged out.
+                </Modal.Body>
+                <Modal.Footer>
+                <Button variant="danger" onClick={deleteHandler}>
+                    Confirm Deletion
+                </Button>
+                <Button variant="secondary" onClick={closeModal}>
+                    Cancel
+                </Button>
+                </Modal.Footer>
+            </Modal>
+            }
         </>
     )
 }

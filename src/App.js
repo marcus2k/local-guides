@@ -103,7 +103,7 @@ const App = () => {
         <CityPage city={currCity} />
       }
       {currPage === "profile" &&
-        <Profile currencies={currencies} citiesList={citiesList} user={user}/>
+        <Profile currencies={currencies} citiesList={citiesList} user={user} logoutHandler={logout}/>
       }
       </div>
       {!isAuthed && 
