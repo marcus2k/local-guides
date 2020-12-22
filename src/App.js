@@ -92,7 +92,7 @@ const App = () => {
       />
       {showAlert && 
         <Alert variant='danger'>
-            Please select a valid city. If you are a guide, you may add your city through your profile!
+            Please select a valid city from the dropdown list.
         </Alert>
       }
       <div className="main">
