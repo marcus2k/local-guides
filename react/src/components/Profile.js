@@ -22,7 +22,7 @@ const FORM_PROPS = [ "id", "name", "intro", "currency", "hourlyRate", "email", "
 const Required = () => <span className="required">*</span>;
 
 const Profile = (props) => {
-    const { currencies, user, logoutHandler, saveHandler } = props;
+    const { user, logoutHandler, saveHandler } = props;
     const [ formState, setFormState ] = useState(user)
     const [ nameError, setNameError ] = useState(false); // should be at least 3 chars and at most 20 chars
     const [ mobileError, setMobileError ] = useState(false); 
@@ -32,6 +32,8 @@ const Profile = (props) => {
     const [ showModal, setModal ] = useState(false);
     const [ citiesList, setCitiesList ] = useState([]);
     const [ citiesLoading, setCitiesLoading ] = useState(false);
+    const [ currencies, setCurrencies ] = useState([]);
+    const [ languages, setLanguages ] = useState([]);
     
     useEffect(() => {
         setCitiesLoading(true);
@@ -43,6 +45,24 @@ const Profile = (props) => {
             setCitiesLoading(false);
         });
     }, []);
+
+    useEffect(() => {
+        guidesServices
+        .getCurrencies()
+        .then(lst => {
+            console.log(lst);
+            setCurrencies(lst);
+        })
+    }, [])
+
+    useEffect(() => {
+        guidesServices
+        .getLanguages()
+        .then(lst => {
+            console.log(lst);
+            setLanguages(lst);
+        })
+    }, [])
 
     const validate = obj => {
         const objCopy = {...obj};
@@ -207,7 +227,7 @@ const Profile = (props) => {
                         isRtl={false}
                         isSearchable={true}
                         name="languages"
-                        options={sortThenObjectify(["English", "Spanish", "Chinese", "Hindi", "Russian"])}
+                        options={sortThenObjectify(languages)}
                         onChange={void(0)}
                         />
                     </Form.Group>

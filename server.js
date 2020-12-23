@@ -127,7 +127,14 @@ app.get('/api/guides/cities', (request, response, next) => {
 
 app.get('/api/guides/languages', (request, response, next) => {
     const languages = new Set(guides.map(g => g.languages).reduce((a, b) => a.concat(b), []));
+    console.log("Languages are ", languages);
     response.send(Array.from(languages));
+})
+
+app.get('/api/guides/currencies', (request, response, next) => {
+    const curr = new Set(guides.map(g => g.hourlyRate[0]).reduce((a, b) => a.concat(b), []));
+    console.log("Currencies are ", currencies);
+    response.send(Array.from(curr));
 })
 
 app.put('/api/guides/email/:email', (request, response, next) => {

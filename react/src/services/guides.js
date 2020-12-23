@@ -12,6 +12,16 @@ const getAllCities = () =>
     .get(baseUrl + '/cities')
     .then(res => res.data);
 
+const getCurrencies = () =>
+    axios
+    .get(baseUrl + '/currencies')
+    .then(res => res.data);
+
+const getLanguages = () => 
+    axios
+    .get(baseUrl + '/languages')
+    .then(res => res.data);
+
 const getCityGuides = (city) => 
     axios
     .get(baseUrl + `/city/${city}`)
@@ -37,4 +47,4 @@ const deleteUser = (email) =>
     .delete(baseUrl + `/email/${email}`)
     .then(res => res.data);
 
-export default { getAllGuides, getAllCities, getCityGuides, getUserProfile, updateUserProfile, addUser, deleteUser };
+export default { getAllGuides, getAllCities, getCityGuides, getUserProfile, updateUserProfile, addUser, deleteUser, getCurrencies, getLanguages };
