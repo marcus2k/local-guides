@@ -8,19 +8,20 @@ import guidesServices from './services/guides';
 import { Alert } from 'react-bootstrap';
 import Profile from './components/Profile';
 
-const SAMPLE_USER = 
+const SAMPLE_EMAIL = "marcus@u.nus.edu";
+/*
 { // sample user
   id: "0",
   name: "Marcus",
   gender: "M",
-  cities: ["Singapore, Singapore", "Bali, Indonesia"],
+  cities: ["Bali, Indonesia"],
   hourlyRate: ["SGD", 80],
   transport: 3,
   languages: ["English", "Chinese", "Indonesian"],
   intro: "Hi, my name is Marcus.",
   email: "marcus@u.nus.edu",
   mobile: "00000000",
-};
+};*/
 
 const App = () => {
   const [ isAuthed, setAuth ] = useState(false);
@@ -28,10 +29,10 @@ const App = () => {
   const [ currCity, setCity ] = useState('dummyInit');
   const [ showAlert, setAlert ] = useState(false);
   const [ user, setUser ] = useState (null);
-  // const [ guides, setGuides ] = useState([]);
   const [ currencies, setCurrencies ] = useState([
     "AUD", "SGD", "IDR", "USD", "THB",
   ])
+
   const [ citiesList, setCitiesList ] = useState([
     "New York, USA", 
     "Bali, Indonesia", 
@@ -46,15 +47,22 @@ const App = () => {
       console.log(lst);
       setCitiesList(lst);
     })
-  , []);
-    
+  , [user]);
+  
+  useEffect(() => guidesServices
+    .getUserProfile(SAMPLE_EMAIL)
+    .then(p => {
+      console.log(p);
+      setUser(p);
+    })
+  , [])
   /*useEffect(() => guidesServices
     .getAllGuides()
     .then(lst => {
         console.log(lst);
         setGuides(lst);
     })
-  , []);
+  , [user]);
   /*
   useEffect(() => citiesServices
   .getAllCities()
@@ -68,13 +76,11 @@ const App = () => {
   console.log(citiesList);
   const login = () => {
     setAuth(true);
-    setUser(SAMPLE_USER);
     setAlert(false);
   }
 
   const logout = () => {
     setAuth(false);
-    setUser(null);
     setAlert(false);
     setPage('home');
   }
@@ -83,6 +89,8 @@ const App = () => {
     setPage(x);
     setAlert(false);
   }
+
+  const updateUser = x => setUser(x);
 
   const cityHandler = (cityName) => event => {
     event.preventDefault();
@@ -119,10 +127,10 @@ const App = () => {
         <Home cityHandler={cityHandler} citiesList={citiesList}/>
       }
       {currPage === "city" &&
-        <CityPage city={currCity} />
+        <CityPage city={currCity} user={user} />
       }
       {currPage === "profile" &&
-        <Profile currencies={currencies} citiesList={citiesList} user={user} logoutHandler={logout}/>
+        <Profile currencies={currencies} saveHandler={updateUser} citiesList={citiesList} user={user} logoutHandler={logout}/>
       }
       </div>
       {!isAuthed && 

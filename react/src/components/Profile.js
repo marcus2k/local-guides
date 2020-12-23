@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Col, Button, Alert, Modal } from 'react-bootstrap';
 import Select from 'react-select';
+import guidesServices from '.././services/guides';
 
 const sortThenObjectify = lst => lst.sort((a, b) => a > b ? 1 : -1).map(x => ({value: x, label: x}));
 
@@ -19,7 +20,7 @@ const FORM_PROPS = [ "id", "name", "intro", "currency", "hourlyRate", "email", "
 const Required = () => <span className="required">*</span>;
 
 const Profile = (props) => {
-    const { currencies, citiesList, user, logoutHandler } = props;
+    const { currencies, citiesList, user, logoutHandler, saveHandler } = props;
     const [ formState, setFormState ] = useState(user)
     const [ nameError, setNameError ] = useState(false); // should be at least 3 chars and at most 20 chars
     const [ mobileError, setMobileError ] = useState(false); 
@@ -46,7 +47,13 @@ const Profile = (props) => {
             setSuccess(false);
             setError(false);
         }, 5000);
-        isSuccess ? setFormState(obj) : setFormState({...formState});
+        if (isSuccess) {
+            guidesServices.updateUserProfile(obj.email, obj);
+            setFormState(obj);
+            saveHandler(obj);
+        } else {
+            setFormState({...formState});
+        }
     }
 
     const handleSubmit = event => {
@@ -85,6 +92,8 @@ const Profile = (props) => {
 
     const openModal = () => setModal(true);
     const closeModal = () => setModal(false);
+
+    console.log("current form state is ", formState);
 
     return (
         <>
