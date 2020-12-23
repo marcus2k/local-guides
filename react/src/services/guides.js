@@ -4,7 +4,7 @@ const baseUrl = '/api/guides';
 
 const getAllGuides = () => 
     axios
-    .get(baseUrl)
+    .get(baseUrl + '/list')
     .then(res => res.data);
 
 const getAllCities = () => 

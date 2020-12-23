@@ -101,7 +101,7 @@ const guides = [ // sampleData
     }
 ]
 
-app.get('/api/guides', (request, response, next) => {
+app.get('/api/guides/list', (request, response, next) => {
     response.send(guides);
     /*Person
     .find({})
@@ -110,9 +110,14 @@ app.get('/api/guides', (request, response, next) => {
 })
 
 app.get('/api/guides/cities', (request, response, next) => {
-    const cities = new Set(guides.map(g => g.city).reduce((a, b) => a.concat(b), []));
+    const cities = new Set(guides.map(g => g.cities).reduce((a, b) => a.concat(b), []));
     response.send(Array.from(cities));
 });
+
+app.get('/api/guides/languages', (request, response, next) => {
+    const languages = new Set(guides.map(g => g.languages).reduce((a, b) => a.concat(b), []));
+    response.send(Array.from(languages));
+})
 
 /*
 const unknownEndpoint = (request, response) => {
