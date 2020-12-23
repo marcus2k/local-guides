@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Form, Col, Button, Alert, Modal } from 'react-bootstrap';
 import Select from 'react-select';
 import guidesServices from '.././services/guides';
+import citiesServices from '.././services/cities';
 
 const sortThenObjectify = lst => lst.sort((a, b) => a > b ? 1 : -1).map(x => ({value: x, label: x}));
 
@@ -20,7 +21,7 @@ const FORM_PROPS = [ "id", "name", "intro", "currency", "hourlyRate", "email", "
 const Required = () => <span className="required">*</span>;
 
 const Profile = (props) => {
-    const { currencies, citiesList, user, logoutHandler, saveHandler } = props;
+    const { currencies, user, logoutHandler, saveHandler } = props;
     const [ formState, setFormState ] = useState(user)
     const [ nameError, setNameError ] = useState(false); // should be at least 3 chars and at most 20 chars
     const [ mobileError, setMobileError ] = useState(false); 
@@ -28,6 +29,19 @@ const Profile = (props) => {
     const [ showSuccess, setSuccess ] = useState(false);
     const [ showError, setError ] = useState(false);
     const [ showModal, setModal ] = useState(false);
+    const [ citiesList, setCitiesList ] = useState([]);
+    const [ citiesLoading, setCitiesLoading ] = useState(false);
+    
+    useEffect(() => {
+        setCitiesLoading(true);
+        guidesServices
+        .getAllCities()
+        .then(lst => {
+            console.log(lst);
+            setCitiesList(lst);
+            setCitiesLoading(false);
+        });
+    }, []);
 
     const validate = obj => {
         const objCopy = {...obj};
@@ -167,7 +181,7 @@ const Profile = (props) => {
                         defaultValue={sortThenObjectify(formState.cities)}
                         isMulti
                         isDisabled={false}
-                        isLoading={false}
+                        isLoading={citiesLoading}
                         isClearable={false}
                         isRtl={false}
                         isSearchable={false}

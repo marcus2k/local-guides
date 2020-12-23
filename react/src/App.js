@@ -32,7 +32,7 @@ const App = () => {
   const [ currencies, setCurrencies ] = useState([
     "AUD", "SGD", "IDR", "USD", "THB",
   ])
-
+  /*
   const [ citiesList, setCitiesList ] = useState([
     "New York, USA", 
     "Bali, Indonesia", 
@@ -47,7 +47,7 @@ const App = () => {
       console.log(lst);
       setCitiesList(lst);
     })
-  , [user]);
+  , [user]);*/
   
   useEffect(() => guidesServices
     .getUserProfile(SAMPLE_EMAIL)
@@ -73,7 +73,6 @@ const App = () => {
   , []);
   */
 
-  console.log(citiesList);
   const login = () => {
     setAuth(true);
     setAlert(false);
@@ -115,7 +114,6 @@ const App = () => {
       pageHandler={pageHandler}
       cityHandler={cityHandler}
       currPage={currPage}
-      citiesList={citiesList}
       />
       {showAlert && 
         <Alert variant='danger'>
@@ -124,13 +122,13 @@ const App = () => {
       }
       <div className="main">
       {currPage === "home" &&
-        <Home cityHandler={cityHandler} citiesList={citiesList}/>
+        <Home cityHandler={cityHandler} />
       }
       {currPage === "city" &&
         <CityPage city={currCity} user={user} />
       }
       {currPage === "profile" &&
-        <Profile currencies={currencies} saveHandler={updateUser} citiesList={citiesList} user={user} logoutHandler={logout}/>
+        <Profile currencies={currencies} saveHandler={updateUser} user={user} logoutHandler={logout}/>
       }
       </div>
       {!isAuthed && 

@@ -24,7 +24,7 @@ const AppBar = (props) => {
             }
           </Nav>
           <div style={{ alignSelf: 'center', display: 'inline-block' }}>
-          {currPage !== "home" &&
+          {currPage !== "home" && currPage !== "profile" &&
             <CitySearch
             isMain={false}
             cityHandler={cityHandler}
