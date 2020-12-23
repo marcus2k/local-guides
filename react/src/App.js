@@ -4,6 +4,7 @@ import AppBar from './components/AppBar';
 import Home from './components/Home';
 import CityPage from './components/CityPage';
 import citiesServices from './services/cities';
+import guidesServices from './services/guides';
 import { Alert } from 'react-bootstrap';
 import Profile from './components/Profile';
 
@@ -36,6 +37,11 @@ const App = () => {
     "Melbourne, Australia"
   ]);
 
+
+  /*useEffect(() => guidesServices
+  .getAllGuides()
+  .then(lst => console.log(lst))
+  , []);
   /*
   useEffect(() => citiesServices
   .getAllCities()
