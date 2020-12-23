@@ -20,6 +20,11 @@ const getCityGuides = (city) =>
 const getUserProfile = (email) => 
     axios
     .get(baseUrl + `/email/${email}`)
-    .then(res => res.data)
+    .then(res => res.data);
 
-export default { getAllGuides, getAllCities, getCityGuides, getUserProfile };
+const updateUserProfile = (email, newProfile) =>
+    axios
+    .put(baseUrl + `/email/${email}`, newProfile)
+    .then(res => res.data);
+
+export default { getAllGuides, getAllCities, getCityGuides, getUserProfile, updateUserProfile };

@@ -2,12 +2,12 @@ const express = require('express');
 const app = express();
 app.use(express.json())
 
-const guides = [ // sampleData
+let guides = [ // sampleData
     {
         id: "0",
         name: "Marcus",
         gender: "M",
-        cities: ["Singapore, Singapore", "Bali, Indonesia"],
+        cities: ["Bali, Indonesia"],
         hourlyRate: ["SGD", 80],
         transport: 3,
         languages: ["English", "Chinese", "Indonesian"],
@@ -117,7 +117,7 @@ app.get('/api/guides/city/:city', (request, response, next) => {
 app.get('/api/guides/email/:email', (request, response, next) => {
     const email = request.params.email;
     const user = guides.filter(g => g.email === email);
-    user.length ? response.send(user) : response.status(404).end();
+    user.length ? response.send(user[0]) : response.status(404).end();
 })
 
 app.get('/api/guides/cities', (request, response, next) => {
@@ -128,6 +128,20 @@ app.get('/api/guides/cities', (request, response, next) => {
 app.get('/api/guides/languages', (request, response, next) => {
     const languages = new Set(guides.map(g => g.languages).reduce((a, b) => a.concat(b), []));
     response.send(Array.from(languages));
+})
+
+app.put('/api/guides/email/:email', (request, response, next) => {
+    const requestEmail = request.params.email;
+    const newProfile = request.body;
+    console.log(newProfile);
+    const hasSuchUser = guides.filter(g => g.email.toLowerCase() === newProfile.email.toLowerCase()).length !== 0;
+    if (hasSuchUser) {
+        guides = guides.map(g => g.email.toLowerCase() === newProfile.email.toLowerCase() ? newProfile : g);
+        response.send(newProfile);
+        console.log("guides updated, ", guides);
+        return;
+    }
+    response.status(404).send();
 })
 
 /*
