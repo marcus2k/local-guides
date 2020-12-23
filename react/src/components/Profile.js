@@ -14,7 +14,7 @@ const isValidName = name => ![1, 2].includes(name.length);
 
 const isValidMobile = mobile => (mobile.match(/^[0-9]+$/) && mobile.length > 7) || mobile.length === 0;
 
-const FORM_PROPS = [ "name", "intro", "currency", "hourlyRate", "email", "mobile", "transport", "cities", "languages" ];
+const FORM_PROPS = [ "id", "name", "intro", "currency", "hourlyRate", "email", "mobile", "transport", "cities", "languages" ];
 
 const Required = () => <span className="required">*</span>;
 
@@ -58,6 +58,7 @@ const Profile = (props) => {
         const [ cities, languages ] = [ form.cities, form.languages ]
             .map(radioArr => radioArr.value ? [].concat(radioArr.value) : Array.from(radioArr).map(node => node.defaultValue));
         const newProfile = { 
+            id: formState.id,
             name: name, 
             intro: intro, 
             hourlyRate: [currency, rate], 

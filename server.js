@@ -109,6 +109,17 @@ app.get('/api/guides/list', (request, response, next) => {
     .catch(err => next(err));*/
 })
 
+app.get('/api/guides/city/:city', (request, response, next) => {
+    const city = request.params.city;
+    response.send(guides.filter(g => g.cities.includes(city)));
+})
+
+app.get('/api/guides/email/:email', (request, response, next) => {
+    const email = request.params.email;
+    const user = guides.filter(g => g.email === email);
+    user.length ? response.send(user) : response.status(404).end();
+})
+
 app.get('/api/guides/cities', (request, response, next) => {
     const cities = new Set(guides.map(g => g.cities).reduce((a, b) => a.concat(b), []));
     response.send(Array.from(cities));

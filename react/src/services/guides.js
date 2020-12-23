@@ -12,4 +12,14 @@ const getAllCities = () =>
     .get(baseUrl + '/cities')
     .then(res => res.data);
 
-export default { getAllGuides, getAllCities };
+const getCityGuides = (city) => 
+    axios
+    .get(baseUrl + `/city/${city}`)
+    .then(res => res.data);
+
+const getUserProfile = (email) => 
+    axios
+    .get(baseUrl + `/email/${email}`)
+    .then(res => res.data)
+
+export default { getAllGuides, getAllCities, getCityGuides, getUserProfile };
