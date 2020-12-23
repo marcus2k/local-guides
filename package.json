@@ -4,7 +4,7 @@
     "scripts": {
         "client": "cd react && npm start",
         "server": "nodemon server.js",
-        "dev": "concurrently --kill-others-on-fail \"npm server\" \"npm client\""
+        "dev": "node_modules/.bin/concurrently --kill-others-on-fail \"npm run server\" \"npm run client\""
     },
     "dependencies": {
         "body-parser": "^1.18.3",
@@ -12,6 +12,6 @@
         "nodemon": "^2.0.6"
     },
     "devDependencies": {
-        "concurrently": "^4.0.1"
+        "concurrently": "^4.1.2"
     }
 }
