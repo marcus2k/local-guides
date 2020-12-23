@@ -133,7 +133,7 @@ app.get('/api/guides/languages', (request, response, next) => {
 
 app.get('/api/guides/currencies', (request, response, next) => {
     const curr = new Set(guides.map(g => g.hourlyRate[0]).reduce((a, b) => a.concat(b), []));
-    console.log("Currencies are ", currencies);
+    console.log("Currencies are ", curr);
     response.send(Array.from(curr));
 })
 
