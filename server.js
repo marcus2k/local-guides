@@ -4,10 +4,22 @@ app.use(express.json())
 
 const guides = [ // sampleData
     {
+        id: "0",
+        name: "Marcus",
+        gender: "M",
+        cities: ["Singapore, Singapore", "Bali, Indonesia"],
+        hourlyRate: ["SGD", 80],
+        transport: 3,
+        languages: ["English", "Chinese", "Indonesian"],
+        intro: "Hi, my name is Marcus.",
+        email: "marcus@u.nus.edu",
+        mobile: "00000000",
+    },
+    {
         id: "1",
         name: "Ivanka",
         gender: "F",
-        city: ["Singapore, Singapore"],
+        cities: ["Singapore, Singapore"],
         hourlyRate: ["SGD", 70],
         transport: 0,
         languages: ["English"],
@@ -19,7 +31,7 @@ const guides = [ // sampleData
         id: "2",
         name: "Budi",
         gender: "M",
-        city: ["Bali, Indonesia"],
+        cities: ["Bali, Indonesia"],
         hourlyRate: ["IDR", 100000],
         transport: 3,
         languages: ["English", "Indonesian"],
@@ -31,7 +43,7 @@ const guides = [ // sampleData
         id: "3",
         name: "Chen Long", // yes
         gender: "M", 
-        city: ["Melbourne, Australia"],
+        cities: ["Melbourne, Australia"],
         hourlyRate: ["AUD", 400], // yes
         transport: 0, // yes
         languages: ["Chinese", "English"],
@@ -43,7 +55,7 @@ const guides = [ // sampleData
         id: "4",
         name: "Albert Pozowski", // yes
         gender: "M", 
-        city: ["Melbourne, Australia"],
+        cities: ["Melbourne, Australia"],
         hourlyRate: ["AUD", 400], // yes
         transport: 0, // yes
         languages: ["Chinese", "English"],
@@ -55,7 +67,7 @@ const guides = [ // sampleData
         id: "5",
         name: "Pauline Meadows", // yes
         gender: "M", 
-        city: ["Melbourne, Australia"],
+        cities: ["Melbourne, Australia"],
         hourlyRate: ["AUD", 400], // yes
         transport: 0, // yes
         languages: ["Chinese", "English"],
@@ -67,7 +79,7 @@ const guides = [ // sampleData
         id: "6",
         name: "Mike Blackbeard", // yes
         gender: "M", 
-        city: ["Melbourne, Australia"],
+        cities: ["Melbourne, Australia"],
         hourlyRate: ["AUD", 400], // yes
         transport: 0, // yes
         languages: ["Chinese", "English"],
@@ -79,7 +91,7 @@ const guides = [ // sampleData
         id: "7",
         name: "Billie",
         gender: "F",
-        city: ["Bangkok, Thailand"],
+        cities: ["Bangkok, Thailand"],
         hourlyRate: ["THB", 40],
         transport: 3,
         languages: ["English", "Thai"],
@@ -96,6 +108,11 @@ app.get('/api/guides', (request, response, next) => {
     .then(persons => response.json(persons))
     .catch(err => next(err));*/
 })
+
+app.get('/api/guides/cities', (request, response, next) => {
+    const cities = new Set(guides.map(g => g.city).reduce((a, b) => a.concat(b), []));
+    response.send(Array.from(cities));
+});
 
 /*
 const unknownEndpoint = (request, response) => {

@@ -9,15 +9,17 @@ import { Alert } from 'react-bootstrap';
 import Profile from './components/Profile';
 
 const SAMPLE_USER = 
-{ // sampleData
-    name: "Billie",
-    cities: ["Bangkok, Thailand"],
-    hourlyRate: ["THB", 40],
-    transport: 3,
-    languages: ["English", "Thai"],
-    intro: "Hi, my name is Billie",
-    email: "billie@example.com",
-    mobile: "6139482193",
+{ // sample user
+  id: "0",
+  name: "Marcus",
+  gender: "M",
+  cities: ["Singapore, Singapore", "Bali, Indonesia"],
+  hourlyRate: ["SGD", 80],
+  transport: 3,
+  languages: ["English", "Chinese", "Indonesian"],
+  intro: "Hi, my name is Marcus.",
+  email: "marcus@u.nus.edu",
+  mobile: "00000000",
 };
 
 const App = () => {
@@ -39,6 +41,14 @@ const App = () => {
   ]);
 
 
+  useEffect(() => guidesServices
+    .getAllCities()
+    .then(lst => {
+      console.log(lst);
+      setCitiesList(lst);
+    })
+  , []);
+    
   useEffect(() => guidesServices
     .getAllGuides()
     .then(lst => {
