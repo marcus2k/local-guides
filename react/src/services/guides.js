@@ -32,4 +32,9 @@ const addUser = (email, newProfile) =>
     .post(baseUrl + `/email/${email}`, newProfile)
     .then(res => res.data);
 
-export default { getAllGuides, getAllCities, getCityGuides, getUserProfile, updateUserProfile, addUser };
+const deleteUser = (email) => 
+    axios
+    .delete(baseUrl + `/email/${email}`)
+    .then(res => res.data);
+
+export default { getAllGuides, getAllCities, getCityGuides, getUserProfile, updateUserProfile, addUser, deleteUser };

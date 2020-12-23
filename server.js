@@ -141,7 +141,7 @@ app.put('/api/guides/email/:email', (request, response, next) => {
         console.log("guides updated, ", guides);
         return;
     }
-    response.status(404).send();
+    response.status(404).end();
 })
 
 app.post('/api/guides/email/:email', (request, response, next) => {
@@ -151,9 +151,17 @@ app.post('/api/guides/email/:email', (request, response, next) => {
     const hasSuchUser = guides.filter(g => g.email.toLowerCase() === newProfile.email.toLowerCase()).length !== 0;
     if (!hasSuchUser) {
         guides = guides.concat(newProfile);
+        response.send(newProfile);
+        console.log("guides updated, ", guides);
+        return;
     }
-    console.log("guides updated, ", guides);
-    response.status(204).send();
+    response.status(400).end(); // bad request
+})
+
+app.delete('/api/guides/email/:email', (request, response, next) => {
+    const requestEmail = request.params.email;
+    guides = guides.filter(g => g.email.toLowerCase() !== requestEmail);
+    response.status(204).end();    
 })
 
 /*
