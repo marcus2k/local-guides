@@ -65,7 +65,7 @@ const guides = [ // sampleData
     },
     {
         id: "6",
-        name: "Paul Blackbeard", // yes
+        name: "Mike Blackbeard", // yes
         gender: "M", 
         city: ["Melbourne, Australia"],
         hourlyRate: ["AUD", 400], // yes

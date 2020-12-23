@@ -26,6 +26,7 @@ const App = () => {
   const [ currCity, setCity ] = useState('dummyInit');
   const [ showAlert, setAlert ] = useState(false);
   const [ user, setUser ] = useState (null);
+  const [ guides, setGuides ] = useState([]);
   const [ currencies, setCurrencies ] = useState([
     "AUD", "SGD", "IDR", "USD", "THB",
   ])
@@ -38,9 +39,12 @@ const App = () => {
   ]);
 
 
-  /*useEffect(() => guidesServices
-  .getAllGuides()
-  .then(lst => console.log(lst))
+  useEffect(() => guidesServices
+    .getAllGuides()
+    .then(lst => {
+        console.log(lst);
+        setGuides(lst);
+    })
   , []);
   /*
   useEffect(() => citiesServices
@@ -106,7 +110,7 @@ const App = () => {
         <Home cityHandler={cityHandler} citiesList={citiesList}/>
       }
       {currPage === "city" &&
-        <CityPage city={currCity} />
+        <CityPage city={currCity} guides={guides}/>
       }
       {currPage === "profile" &&
         <Profile currencies={currencies} citiesList={citiesList} user={user} logoutHandler={logout}/>
