@@ -27,4 +27,9 @@ const updateUserProfile = (email, newProfile) =>
     .put(baseUrl + `/email/${email}`, newProfile)
     .then(res => res.data);
 
-export default { getAllGuides, getAllCities, getCityGuides, getUserProfile, updateUserProfile };
+const addUser = (email, newProfile) => 
+    axios
+    .post(baseUrl + `/email/${email}`, newProfile)
+    .then(res => res.data);
+
+export default { getAllGuides, getAllCities, getCityGuides, getUserProfile, updateUserProfile, addUser };

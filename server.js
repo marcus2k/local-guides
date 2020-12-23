@@ -144,6 +144,18 @@ app.put('/api/guides/email/:email', (request, response, next) => {
     response.status(404).send();
 })
 
+app.post('/api/guides/email/:email', (request, response, next) => {
+    const requestEmail = request.params.email;
+    const newProfile = request.body;
+    console.log(newProfile);
+    const hasSuchUser = guides.filter(g => g.email.toLowerCase() === newProfile.email.toLowerCase()).length !== 0;
+    if (!hasSuchUser) {
+        guides = guides.concat(newProfile);
+    }
+    console.log("guides updated, ", guides);
+    response.status(204).send();
+})
+
 /*
 const unknownEndpoint = (request, response) => {
     response.status(404).send({ error: 'unknown endpoint' })
