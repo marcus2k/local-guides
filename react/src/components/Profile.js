@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Form, Col, Button, Alert, Modal } from 'react-bootstrap';
 import Select from 'react-select';
+import CreatableSelect from 'react-select/creatable'
 import guidesServices from '.././services/guides';
 import citiesServices from '.././services/cities';
 
@@ -156,7 +157,7 @@ const Profile = (props) => {
                     </Form.Group>
                     <Form.Group as={Col} controlId="currency">
                         <Form.Label>Currency<Required /></Form.Label>
-                        <Select
+                        <CreatableSelect
                         className="basic-single"
                         classNamePrefix="select"
                         defaultValue={{label:formState.hourlyRate[0], value:formState.hourlyRate[0]}}
@@ -164,7 +165,7 @@ const Profile = (props) => {
                         isLoading={false}
                         isClearable={false}
                         isRtl={false}
-                        isSearchable={false}
+                        isSearchable={true}
                         name="currency"
                         options={sortThenObjectify(currencies)}
                         onChange={void(0)}
@@ -174,7 +175,7 @@ const Profile = (props) => {
                 <Form.Row>
                     <Form.Group as={Col} controlId="cities">
                         <Form.Label >Cities<Required /></Form.Label>
-                        <Select
+                        <CreatableSelect
                         className="basic-single"
                         classNamePrefix="select"
                         placeholder="Select at least one city"
@@ -184,7 +185,7 @@ const Profile = (props) => {
                         isLoading={citiesLoading}
                         isClearable={false}
                         isRtl={false}
-                        isSearchable={false}
+                        isSearchable={true}
                         name="cities"
                         options={sortThenObjectify(citiesList)}
                         onChange={void(0)}
@@ -194,7 +195,7 @@ const Profile = (props) => {
                 <Form.Row>
                     <Form.Group as={Col} controlId="languages">
                         <Form.Label>Languages<Required /></Form.Label>
-                        <Select
+                        <CreatableSelect
                         className="basic-single"
                         classNamePrefix="select"
                         placeholder="Select at least one language"
@@ -204,7 +205,7 @@ const Profile = (props) => {
                         isLoading={false}
                         isClearable={false}
                         isRtl={false}
-                        isSearchable={false}
+                        isSearchable={true}
                         name="languages"
                         options={sortThenObjectify(["English", "Spanish", "Chinese", "Hindi", "Russian"])}
                         onChange={void(0)}
