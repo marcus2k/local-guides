@@ -12,7 +12,7 @@ let guides = [ // sampleData
         transport: 3,
         languages: ["English", "Chinese", "Indonesian"],
         intro: "Hi, my name is Marcus.",
-        email: "marcus@u.nus.edu",
+        email: "marcus.nuschbe@gmail.com",
         mobile: "00000000",
     },
     {

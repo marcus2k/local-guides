@@ -9,80 +9,36 @@ import { Alert } from 'react-bootstrap';
 import Profile from './components/Profile';
 import { useAuth0 } from "@auth0/auth0-react";
 
-const SAMPLE_EMAIL = "marcus@u.nus.edu";
-/*
-{ // sample user
-  id: "0",
-  name: "Marcus",
-  gender: "M",
-  cities: ["Bali, Indonesia"],
-  hourlyRate: ["SGD", 80],
-  transport: 3,
-  languages: ["English", "Chinese", "Indonesian"],
-  intro: "Hi, my name is Marcus.",
-  email: "marcus@u.nus.edu",
-  mobile: "00000000",
-};*/
-
 const App = () => {
-  const [ isAuthed, setAuth ] = useState(false);
-  const { loginWithRedirect } = useAuth0();
+  const { loginWithRedirect, isAuthenticated, logout, user } = useAuth0();
+  const [ userProfile, setProfile ] = useState(null)
   const [ currPage, setPage ] = useState('home'); // home, profile, city
   const [ currCity, setCity ] = useState('dummyInit');
   const [ showAlert, setAlert ] = useState(false);
-  const [ user, setUser ] = useState (null);
   const [ currencies, setCurrencies ] = useState([
     "AUD", "SGD", "IDR", "USD", "THB",
   ])
-  /*
-  const [ citiesList, setCitiesList ] = useState([
-    "New York, USA", 
-    "Bali, Indonesia", 
-    "Singapore, Singapore", 
-    "Bangkok, Thailand", 
-    "Melbourne, Australia"
-  ]);
 
-  useEffect(() => guidesServices
-    .getAllCities()
-    .then(lst => {
-      console.log(lst);
-      setCitiesList(lst);
-    })
-  , [user]);*/
+  console.log(userProfile);
   
-  useEffect(() => guidesServices
-    .getUserProfile(SAMPLE_EMAIL)
-    .then(p => {
-      console.log(p);
-      setUser(p);
-    })
-  , [])
-  /*useEffect(() => guidesServices
-    .getAllGuides()
-    .then(lst => {
-        console.log(lst);
-        setGuides(lst);
-    })
-  , [user]);
-  /*
-  useEffect(() => citiesServices
-  .getAllCities()
-  .then(lst => {
-    console.log(lst); 
-    setCitiesList(lst);
-  })
-  , []);
-  */
+  useEffect(() => {
+    if (user) {
+      guidesServices
+      .getUserProfile(user.email)
+      .then(p => {
+        console.log(p);
+        setProfile(p);
+      })
+    }
+  }, [user]);
 
-  const login = () => {
+  const loginHandler = () => {
     loginWithRedirect();
-    //setAuth(true);
-    //setAlert(false);
+    setAlert(false);
   }
 
-  const logout = () => {
-    setAuth(false);
+  const logoutHandler = () => {
+    logout();
     setAlert(false);
     setPage('home');
   }
@@ -92,12 +48,11 @@ const App = () => {
     setAlert(false);
   }
 
-  const updateUser = x => setUser(x);
+  const updateUser = x => console.log("replace this with profile update");
 
   const cityHandler = (cityName) => event => {
     event.preventDefault();
     if (!cityName) {
-      // alert("Please select a valid city. If you are a guide, you may add your city through your profile!");
       setAlert(true);
       setTimeout(() => setAlert(false), 5000);
       return;
@@ -111,9 +66,9 @@ const App = () => {
   return (
     <div className="App">
       <AppBar 
-      isAuthed={isAuthed}
-      loginHandler={login}
-      logoutHandler={logout}
+      isAuthed={isAuthenticated}
+      loginHandler={loginHandler}
+      logoutHandler={logoutHandler}
       pageHandler={pageHandler}
       cityHandler={cityHandler}
       currPage={currPage}
@@ -128,15 +83,15 @@ const App = () => {
         <Home cityHandler={cityHandler} />
       }
       {currPage === "city" &&
-        <CityPage city={currCity} user={user} />
+        <CityPage city={currCity} user={userProfile} />
       }
-      {currPage === "profile" &&
-        <Profile currencies={currencies} saveHandler={updateUser} user={user} logoutHandler={logout}/>
+      {currPage === "profile" && 
+        <Profile currencies={currencies} saveHandler={updateUser} user={userProfile} logoutHandler={logoutHandler}/>
       }
       </div>
-      {!isAuthed && 
+      {!isAuthenticated && 
         <div className="unauthed-footer">
-          <p>Here as a guide? <a href="#" onClick={login}>Login</a> to set up your profile!<br/></p>
+          <p>Here as a guide? <a href="#" onClick={loginHandler}>Login</a> to set up your profile!<br/></p>
         </div>
       }
     </div>
