@@ -32,6 +32,8 @@ const Profile = (props) => {
     const [ showModal, setModal ] = useState(false);
     const [ citiesList, setCitiesList ] = useState([]);
     const [ citiesLoading, setCitiesLoading ] = useState(false);
+    const [ currLoading, setCurrLoading ] = useState(false);
+    const [ langLoading, setLangLoading ] = useState(false);
     const [ currencies, setCurrencies ] = useState([]);
     const [ languages, setLanguages ] = useState([]);
     
@@ -47,20 +49,24 @@ const Profile = (props) => {
     }, []);
 
     useEffect(() => {
+        setCurrLoading(true);
         guidesServices
         .getCurrencies()
         .then(lst => {
             console.log(lst);
             setCurrencies(lst);
+            setCurrLoading(false);
         })
     }, [])
 
     useEffect(() => {
+        setLangLoading(true);
         guidesServices
         .getLanguages()
         .then(lst => {
             console.log(lst);
             setLanguages(lst);
+            setLangLoading(false);
         })
     }, [])
 
@@ -182,7 +188,7 @@ const Profile = (props) => {
                         classNamePrefix="select"
                         defaultValue={{label:formState.hourlyRate[0], value:formState.hourlyRate[0]}}
                         isDisabled={false}
-                        isLoading={false}
+                        isLoading={currLoading}
                         isClearable={false}
                         isRtl={false}
                         isSearchable={true}
@@ -222,7 +228,7 @@ const Profile = (props) => {
                         defaultValue={sortThenObjectify(formState.languages)}
                         isMulti
                         isDisabled={false}
-                        isLoading={false}
+                        isLoading={langLoading}
                         isClearable={false}
                         isRtl={false}
                         isSearchable={true}
