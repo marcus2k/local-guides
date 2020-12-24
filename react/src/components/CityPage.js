@@ -23,7 +23,7 @@ const CityPage = (props) => {
         <div>
             <h2 className="city-header">Tour Guides at: {city}</h2>
             {!loading && hasGuides && <GuideList list={guideList} />}
-            {loading && <h4><br /><br />Loading...</h4>}
+            {/*loading && <h4><br /><br />Loading...</h4>*/}
             {!hasGuides && !loading && <h4><br /><br />No tour guides found :(</h4>}
         </div>
     )
