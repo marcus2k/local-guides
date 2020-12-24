@@ -37,9 +37,9 @@ const updateUserProfile = (email, newProfile) =>
     .put(baseUrl + `/email/${email}`, newProfile)
     .then(res => res.data);
 
-const addUser = (email, newProfile) => 
+const addUser = (newProfile) => 
     axios
-    .post(baseUrl + `/email/${email}`, newProfile)
+    .post(baseUrl, newProfile)
     .then(res => res.data);
 
 const deleteUser = (email) => 

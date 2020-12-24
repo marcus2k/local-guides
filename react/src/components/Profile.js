@@ -100,7 +100,7 @@ const Profile = (props) => {
             setError(false);
         }, 5000);
         if (isSuccess) {
-            isBlank ? guidesServices.addUser(obj.email, obj) : guidesServices.updateUserProfile(obj.email, obj);
+            isBlank ? guidesServices.addUser(obj) : guidesServices.updateUserProfile(obj.email, obj);
             setFormState(obj);
             saveHandler(obj);
         } else {
