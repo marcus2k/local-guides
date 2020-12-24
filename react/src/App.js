@@ -83,7 +83,7 @@ const App = () => {
         <Home cityHandler={cityHandler} />
       }
       {currPage === "city" &&
-        <CityPage city={currCity} user={userProfile} />
+        <CityPage city={currCity} />
       }
       {currPage === "profile" && 
         <Profile currencies={currencies} saveHandler={updateUser} user={userProfile} logoutHandler={logoutHandler}/>
