@@ -28,6 +28,7 @@ const App = () => {
       .then(p => {
         console.log(p);
         setProfile(p);
+        setMissingProfile(false);
       })
       .catch(err => {
         console.log(err);

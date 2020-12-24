@@ -140,7 +140,12 @@ const Profile = (props) => {
     }
     
     const deleteHandler = () => {
-        logoutHandler();
+        guidesServices
+        .deleteUser(user.email)
+        .then(p => {
+          console.log(p);
+          logoutHandler();
+        })
     }
 
     const openModal = () => setModal(true);
