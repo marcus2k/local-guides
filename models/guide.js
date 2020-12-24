@@ -1,4 +1,5 @@
 const mongoose = require("mongoose")
+const uniqueValidator = require('mongoose-unique-validator');
 
 const url = process.env.MONGODB_URI;
 
@@ -9,15 +10,30 @@ mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true, useFind
     .catch(error => console.log('error connecting to mongoDB: ', error.message));
 
 const guideSchema = new mongoose.Schema({
-    name: String,
+    name: {
+        type: String,
+        required: true,
+    },
     cities: Array,
     hourlyRate: Array,
-    transport: Number,
+    transport: {
+        type: Number,
+        required: true,
+    },
     languages: Array,
     intro: String,
-    email: String,
-    mobile: String,
+    email: {
+        type: String,
+        unique: true,
+        required: true,
+    },
+    mobile: {
+        type: String,
+        required: true,
+    }
 })
+
+guideSchema.plugin(uniqueValidator);
 
 guideSchema.set('toJSON', {
     transform: (document, returnedObject) => {
