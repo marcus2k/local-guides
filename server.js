@@ -3,7 +3,7 @@ const app = express();
 app.use(express.json());
 
 let guides = [ // sampleData
-    {
+    /*{
         id: "0",
         name: "Marcus",
         gender: "M",
@@ -14,7 +14,7 @@ let guides = [ // sampleData
         intro: "Hi, my name is Marcus.",
         email: "marcus.nuschbe@gmail.com",
         mobile: "00000000",
-    },
+    },*/
     {
         id: "1",
         name: "Ivanka",
