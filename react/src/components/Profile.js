@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Form, Col, Button, Alert, Modal } from 'react-bootstrap';
-import Select from 'react-select';
 import CreatableSelect from 'react-select/creatable'
 import guidesServices from '.././services/guides';
-import citiesServices from '.././services/cities';
 
 const sortThenObjectify = lst => lst.sort((a, b) => a > b ? 1 : -1).map(x => ({value: x, label: x}));
 
@@ -21,9 +19,23 @@ const FORM_PROPS = [ "id", "name", "intro", "currency", "hourlyRate", "email", "
 
 const Required = () => <span className="required">*</span>;
 
+const BLANK_STATE = 
+{
+    id: "",
+    name: "",
+    gender: "",
+    cities: [],
+    hourlyRate: ["", ""],
+    transport: "",
+    languages: [],
+    intro: "",
+    email: "",
+    mobile: "",
+}
+
 const Profile = (props) => {
-    const { user, logoutHandler, saveHandler } = props;
-    const [ formState, setFormState ] = useState(user)
+    const { user, logoutHandler, saveHandler, isBlank } = props;
+    const [ formState, setFormState ] = useState(isBlank ? BLANK_STATE : user);
     const [ nameError, setNameError ] = useState(false); // should be at least 3 chars and at most 20 chars
     const [ mobileError, setMobileError ] = useState(false); 
     const [ emptyError, setEmptyError ] = useState(false); // at least one
@@ -247,7 +259,7 @@ const Profile = (props) => {
                 <Form.Row>
                     <Form.Group as={Col}>
                         <Button variant="success" type="submit" className="mr-sm-2">Save Profile</Button>
-                        <Button variant="danger" onClick={openModal} className="ml-sm-2">Delete Profile</Button>
+                        {!isBlank && <Button variant="danger" onClick={openModal} className="ml-sm-2">Delete Profile</Button>}
                     </Form.Group>
                 </Form.Row>
             </Form>

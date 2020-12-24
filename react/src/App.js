@@ -3,7 +3,6 @@ import './App.css';
 import AppBar from './components/AppBar';
 import Home from './components/Home';
 import CityPage from './components/CityPage';
-import citiesServices from './services/cities';
 import guidesServices from './services/guides';
 import { Alert } from 'react-bootstrap';
 import Profile from './components/Profile';
@@ -15,6 +14,7 @@ const App = () => {
   const [ currPage, setPage ] = useState('home'); // home, profile, city
   const [ currCity, setCity ] = useState('dummyInit');
   const [ showAlert, setAlert ] = useState(false);
+  const [ missingProfile, setMissingProfile ] = useState(false);
   const [ currencies, setCurrencies ] = useState([
     "AUD", "SGD", "IDR", "USD", "THB",
   ])
@@ -28,6 +28,10 @@ const App = () => {
       .then(p => {
         console.log(p);
         setProfile(p);
+      })
+      .catch(err => {
+        console.log(err);
+        setMissingProfile(true); // 404 not found?
       })
     }
   }, [user]);
@@ -48,7 +52,7 @@ const App = () => {
     setAlert(false);
   }
 
-  const updateUser = x => console.log("replace this with profile update");
+  const updateUser = x => setProfile(x);
 
   const cityHandler = (cityName) => event => {
     event.preventDefault();
@@ -86,7 +90,7 @@ const App = () => {
         <CityPage city={currCity} />
       }
       {currPage === "profile" && 
-        <Profile currencies={currencies} saveHandler={updateUser} user={userProfile} logoutHandler={logoutHandler}/>
+        <Profile isBlank={missingProfile} currencies={currencies} saveHandler={updateUser} user={userProfile} logoutHandler={logoutHandler}/>
       }
       </div>
       {!isAuthenticated && 
