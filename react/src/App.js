@@ -64,7 +64,10 @@ const App = () => {
     setAlert(false);
   }
 
-  const updateUser = x => setProfile(x);
+  const updateUser = x => {
+    setProfile(x);
+    setMissingProfile(false);
+  }
 
   const cityHandler = (cityName) => event => {
     event.preventDefault();
@@ -102,7 +105,7 @@ const App = () => {
         <CityPage city={currCity} />
       }
       {currPage === "profile" && 
-        <Profile deleteHandler={deleteHandler} isBlank={missingProfile} currencies={currencies} saveHandler={updateUser} user={userProfile} />
+        <Profile deleteHandler={deleteHandler} isBlank={missingProfile} email={user.email} currencies={currencies} saveHandler={updateUser} user={userProfile} />
       }
       </div>
       {!isAuthenticated && 

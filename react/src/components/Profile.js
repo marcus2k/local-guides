@@ -19,8 +19,8 @@ const FORM_PROPS = [ "id", "name", "intro", "currency", "hourlyRate", "email", "
 
 const Required = () => <span className="required">*</span>;
 
-const BLANK_STATE = 
-{
+const BLANK_STATE = email =>
+({
     id: "",
     name: "",
     gender: "",
@@ -29,13 +29,13 @@ const BLANK_STATE =
     transport: "",
     languages: [],
     intro: "",
-    email: "",
+    email: email,
     mobile: "",
-}
+});
 
 const Profile = (props) => {
-    const { user, deleteHandler, saveHandler, isBlank } = props;
-    const [ formState, setFormState ] = useState(isBlank ? BLANK_STATE : user);
+    const { user, deleteHandler, saveHandler, isBlank, email } = props;
+    const [ formState, setFormState ] = useState(isBlank ? BLANK_STATE(email) : user);
     const [ nameError, setNameError ] = useState(false); // should be at least 3 chars and at most 20 chars
     const [ mobileError, setMobileError ] = useState(false); 
     const [ emptyError, setEmptyError ] = useState(false); // at least one
@@ -101,7 +101,7 @@ const Profile = (props) => {
             setError(false);
         }, 5000);
         if (isSuccess) {
-            guidesServices.updateUserProfile(obj.email, obj);
+            isBlank ? guidesServices.addUser(obj.email, obj) : guidesServices.updateUserProfile(obj.email, obj);
             setFormState(obj);
             saveHandler(obj);
         } else {
@@ -115,10 +115,11 @@ const Profile = (props) => {
         const [ name, intro, currency, rate, email, mobile, transport ] = 
             [ form.name, form.intro, form.currency, form.hourlyRate, form.email, form.mobile, form.transport ]
             .map(obj => obj.value);
+        console.log("forms state email is ", email);
         const [ cities, languages ] = [ form.cities, form.languages ]
             .map(radioArr => radioArr.value ? [].concat(radioArr.value) : Array.from(radioArr).map(node => node.defaultValue));
         const newProfile = { 
-            id: formState.id,
+            id: "0",
             name: name, 
             intro: intro, 
             hourlyRate: [currency, rate], 
@@ -176,7 +177,7 @@ const Profile = (props) => {
                         </Form.Control.Feedback>*/}
                     </Form.Group>
                     <Form.Group as={Col} controlId="email">
-                        <Form.Label>Email Address<Required /></Form.Label>
+                        <Form.Label>Email<Required /></Form.Label>
                         <Form.Control disabled type="email" defaultValue={formState.email} />
                     </Form.Group>
                 </Form.Row>
