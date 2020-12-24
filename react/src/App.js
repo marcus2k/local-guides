@@ -7,6 +7,7 @@ import citiesServices from './services/cities';
 import guidesServices from './services/guides';
 import { Alert } from 'react-bootstrap';
 import Profile from './components/Profile';
+import { useAuth0 } from "@auth0/auth0-react";
 
 const SAMPLE_EMAIL = "marcus@u.nus.edu";
 /*
@@ -25,6 +26,7 @@ const SAMPLE_EMAIL = "marcus@u.nus.edu";
 
 const App = () => {
   const [ isAuthed, setAuth ] = useState(false);
+  const { loginWithRedirect } = useAuth0();
   const [ currPage, setPage ] = useState('home'); // home, profile, city
   const [ currCity, setCity ] = useState('dummyInit');
   const [ showAlert, setAlert ] = useState(false);
@@ -74,8 +76,9 @@ const App = () => {
   */
 
   const login = () => {
-    setAuth(true);
-    setAlert(false);
+    loginWithRedirect();
+    //setAuth(true);
+    //setAlert(false);
   }
 
   const logout = () => {
