@@ -7,6 +7,7 @@ Local Guides is platform for local tour guides to promote their services and for
 # User Stories
 ## Iteration 1 (Basic Functionality)
 **The project is currently at this iteration.**\
+\
 As a Guide:
 - I can login to the app using my personal email address
 - I can offer local tour services within cities for tourists
