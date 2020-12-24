@@ -15,9 +15,6 @@ const App = () => {
   const [ currCity, setCity ] = useState('dummyInit');
   const [ showAlert, setAlert ] = useState(false);
   const [ missingProfile, setMissingProfile ] = useState(false);
-  const [ currencies, setCurrencies ] = useState([
-    "AUD", "SGD", "IDR", "USD", "THB",
-  ])
 
   console.log(userProfile);
   
@@ -105,7 +102,7 @@ const App = () => {
         <CityPage city={currCity} />
       }
       {currPage === "profile" && 
-        <Profile deleteHandler={deleteHandler} isBlank={missingProfile} email={user.email} currencies={currencies} saveHandler={updateUser} user={userProfile} />
+        <Profile deleteHandler={deleteHandler} isBlank={missingProfile} email={user.email} saveHandler={updateUser} user={userProfile} />
       }
       </div>
       {!isAuthenticated && 
