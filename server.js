@@ -102,7 +102,7 @@ let guides = [ // sampleData
 ]
 
 app.get('/api/guides/list', (request, response, next) => {
-    response.send(guides);
+    response.json(guides);
     /*Person
     .find({})
     .then(persons => response.json(persons))
@@ -111,30 +111,30 @@ app.get('/api/guides/list', (request, response, next) => {
 
 app.get('/api/guides/city/:city', (request, response, next) => {
     const city = request.params.city;
-    response.send(guides.filter(g => g.cities.includes(city)));
+    response.json(guides.filter(g => g.cities.includes(city)));
 })
 
 app.get('/api/guides/email/:email', (request, response, next) => {
     const email = request.params.email;
     const user = guides.filter(g => g.email === email);
-    user.length ? response.send(user[0]) : response.status(404).end();
+    user.length ? response.json(user[0]) : response.status(404).end();
 })
 
 app.get('/api/guides/cities', (request, response, next) => {
     const cities = new Set(guides.map(g => g.cities).reduce((a, b) => a.concat(b), []));
-    response.send(Array.from(cities));
+    response.json(Array.from(cities));
 });
 
 app.get('/api/guides/languages', (request, response, next) => {
     const languages = new Set(guides.map(g => g.languages).reduce((a, b) => a.concat(b), []));
     console.log("Languages are ", languages);
-    response.send(Array.from(languages));
+    response.json(Array.from(languages));
 })
 
 app.get('/api/guides/currencies', (request, response, next) => {
     const curr = new Set(guides.map(g => g.hourlyRate[0]).reduce((a, b) => a.concat(b), []));
     console.log("Currencies are ", curr);
-    response.send(Array.from(curr));
+    response.json(Array.from(curr));
 })
 
 app.put('/api/guides/email/:email', (request, response, next) => {
@@ -144,7 +144,7 @@ app.put('/api/guides/email/:email', (request, response, next) => {
     const hasSuchUser = guides.filter(g => g.email.toLowerCase() === newProfile.email.toLowerCase()).length !== 0;
     if (hasSuchUser) {
         guides = guides.map(g => g.email.toLowerCase() === newProfile.email.toLowerCase() ? newProfile : g);
-        response.send(newProfile);
+        response.json(newProfile);
         console.log("guides updated, ", guides);
         return;
     }
@@ -158,7 +158,7 @@ app.post('/api/guides/email/:email', (request, response, next) => {
     const hasSuchUser = guides.filter(g => g.email.toLowerCase() === newProfile.email.toLowerCase()).length !== 0;
     if (!hasSuchUser) {
         guides = guides.concat(newProfile);
-        response.send(newProfile);
+        response.json(newProfile);
         console.log("guides updated, ", guides);
         return;
     }
