@@ -37,6 +37,17 @@ const App = () => {
     }
   }, [user]);
 
+  const deleteHandler = () => {
+    guidesServices
+    .deleteUser(user.email)
+    .then(p => {
+      console.log(p);
+      setPage("home");
+      setProfile(null);
+      setMissingProfile(true);
+    })
+  }
+
   const loginHandler = () => {
     loginWithRedirect();
     setAlert(false);
@@ -91,7 +102,7 @@ const App = () => {
         <CityPage city={currCity} />
       }
       {currPage === "profile" && 
-        <Profile isBlank={missingProfile} currencies={currencies} saveHandler={updateUser} user={userProfile} logoutHandler={logoutHandler}/>
+        <Profile deleteHandler={deleteHandler} isBlank={missingProfile} currencies={currencies} saveHandler={updateUser} user={userProfile} />
       }
       </div>
       {!isAuthenticated && 

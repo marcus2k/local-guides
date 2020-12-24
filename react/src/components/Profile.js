@@ -34,7 +34,7 @@ const BLANK_STATE =
 }
 
 const Profile = (props) => {
-    const { user, logoutHandler, saveHandler, isBlank } = props;
+    const { user, deleteHandler, saveHandler, isBlank } = props;
     const [ formState, setFormState ] = useState(isBlank ? BLANK_STATE : user);
     const [ nameError, setNameError ] = useState(false); // should be at least 3 chars and at most 20 chars
     const [ mobileError, setMobileError ] = useState(false); 
@@ -137,15 +137,6 @@ const Profile = (props) => {
         console.log(cities);
         console.log(languages);
         console.log(newProfile);
-    }
-    
-    const deleteHandler = () => {
-        guidesServices
-        .deleteUser(user.email)
-        .then(p => {
-          console.log(p);
-          logoutHandler();
-        })
     }
 
     const openModal = () => setModal(true);
@@ -278,7 +269,7 @@ const Profile = (props) => {
                 <Modal.Title>Delete your account permanently?</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    Your profile will be permanently removed from our database of guides and you will be logged out.
+                    Your profile will be permanently removed from our database of guides.
                 </Modal.Body>
                 <Modal.Footer>
                 <Button variant="danger" onClick={deleteHandler}>
