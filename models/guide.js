@@ -14,14 +14,27 @@ const guideSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    cities: Array,
-    hourlyRate: Array,
+    cities: {
+        type: Array,
+        required: true,
+    },
+    hourlyRate: {
+        type: Array,
+        required: true,
+    },
     transport: {
         type: Number,
         required: true,
+        min: 0,
     },
-    languages: Array,
-    intro: String,
+    languages: {
+        type: Array,
+        required: true,
+    },
+    intro: {
+        type: String,
+        required: true,
+    },
     email: {
         type: String,
         unique: true,
@@ -30,6 +43,7 @@ const guideSchema = new mongoose.Schema({
     mobile: {
         type: String,
         required: true,
+        validate: /^[0-9]+$/
     }
 })
 
