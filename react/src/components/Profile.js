@@ -246,8 +246,8 @@ const Profile = (props) => {
                 </Form.Row>
                 <Form.Row>
                     <Form.Group as={Col}>
-                        <Button variant="success" type="submit" className="mr-sm-2">Save Changes</Button>
-                        <Button variant="danger" onClick={openModal} className="ml-sm-2">Delete Account</Button>
+                        <Button variant="success" type="submit" className="mr-sm-2">Save Profile</Button>
+                        <Button variant="danger" onClick={openModal} className="ml-sm-2">Delete Profile</Button>
                     </Form.Group>
                 </Form.Row>
             </Form>
